@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{f2656095-5bc6-4538-90b5-dcb86b46d9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{16223e6b-13bf-439a-9d2b-66c68cdebf12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameWorld">
+      <UniqueIdentifier>{33ddfe55-3725-41f2-9989-be7757b9fd06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{900e855f-25d9-4e81-b9a6-bc2ef911bd84}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SClient_Base.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="SClient_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SClient_GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SClient_GameWorld.cpp">
+      <Filter>GameWorld</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SClient_Base.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SClient_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SClient_GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SClient_GameWorld.h">
+      <Filter>GameWorld</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

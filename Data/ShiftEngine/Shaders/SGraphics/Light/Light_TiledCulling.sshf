@@ -1,0 +1,97 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SGraphics/Light/Light_Structs.sshf"
+
+#define MAX_NUM_LIGHTS_PER_TILE 64
+#define TILE_SIZE 16
+
+////////////////////////////////////
+// Tiled Culling Structs
+
+struct SR_TileFrustum
+{
+	Plane myPlanes[4]; // Left, Top, Right, Bottom
+};
+
+struct SR_TileData
+{
+    uint myNumLightsActive;
+    int myLightIndices[MAX_NUM_LIGHTS_PER_TILE];
+};
+
+////////////////////////////////////
+// Tiled Culling Global Buffer
+SR_StructuredBuffer<SR_TileData> LightTileData : SR_BufferRef_LightTileData;
+
+////////////////////////////////////
+// Tiled Culling functions
+
+uint2 GetNumTiles()
+{
+    uint2 output;
+    output.x = (uint)((SR_ViewConstants.myResolution.x + TILE_SIZE - 1) / (float)TILE_SIZE);
+    output.y = (uint)((SR_ViewConstants.myResolution.y + TILE_SIZE - 1) / (float)TILE_SIZE);
+    return output;
+}
+
+uint GetTileIndex(float2 aGroupId)
+{
+    return (aGroupId.x + aGroupId.y * GetNumTiles().x);
+}
+
+Plane CreateFrustumPlane(float4 b, float4 c)
+{
+    Plane n;
+
+    // normalize(cross( b.xyz-a.xyz, c.xyz-a.xyz )), except we know "a" is the origin
+    n.myNormal = normalize(cross( b.xyz, c.xyz ));
+
+    // -(n dot a), except we know "a" is the origin
+    n.myDistanceToOrigin = 0;
+
+    return n;
+}
+
+float GetSignedDistanceFromPlane(float3 aPoint, Plane aPlane)
+{
+    return dot(aPlane.myNormal, aPoint.xyz);
+}
+
+bool IsInsideTileFrustum(in SR_TileFrustum aFrustum, in SR_Light aLight, float aMinDepth, float aMaxDepth)
+{
+    // We don't need to cull Directional Light because it has no bounds.
+
+    if (aLight.myType == SR_LightType_Pointlight)
+	{
+        if(-aLight.myPosition.z + aMinDepth < aLight.myRange && aLight.myPosition.z - aMaxDepth < aLight.myRange)
+        {
+            if((GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[0]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[1]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[2]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[3]) < aLight.myRange))
+            {
+                return true;
+            }
+        }
+	}
+	else if (aLight.myType == SR_LightType_Spotlight)
+	{
+        // Currently uses the same culling calc as points.
+        // Can be substituted for a cone-plane intersection for more accurate culling.
+        if(-aLight.myPosition.z + aMinDepth < aLight.myRange && aLight.myPosition.z - aMaxDepth < aLight.myRange)
+        {
+            if((GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[0]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[1]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[2]) < aLight.myRange) &&
+               (GetSignedDistanceFromPlane(aLight.myPosition, aFrustum.myPlanes[3]) < aLight.myRange))
+            {
+                return true;
+            }
+        }
+	}
+	//else if (light.myType == SR_LightType_AreaLight)
+    //{
+    //  return true;
+    //}
+
+	return false;
+}

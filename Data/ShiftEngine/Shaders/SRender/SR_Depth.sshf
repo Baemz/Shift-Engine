@@ -1,0 +1,31 @@
+import "SRender/SR_StaticSamplers.sshf"
+import "SRender/SR_ViewConstants.sshf"
+
+SR_Texture2D SR_DepthTexture : SR_TextureRef_Depth;
+SR_Texture2D SR_LinearDepthTexture : SR_TextureRef_LinearDepth;
+
+float SR_SampleDepth(in float2 aUV)
+{
+    return SR_SampleLod(SamplerLinearClamp, SR_DepthTexture, aUV, 0).r;
+}
+
+float SR_LoadDepthAtPixel(in int2 aPixelPos)
+{
+    return SR_Load(SR_DepthTexture, int3(aPixelPos, 0)).r;
+}
+
+float SR_SampleLinearDepth(in float2 aUV)
+{
+    return SR_SampleLod(SamplerLinearClamp, SR_LinearDepthTexture, aUV, 0).r;
+}
+
+float SR_LoadLinearDepthAtPixel(in int2 aPixelPos)
+{
+    return SR_Load(SR_LinearDepthTexture, int3(aPixelPos, 0)).r;
+}
+
+float SR_LinearizeDepth(float aDepthValue)
+{
+    float linearDepth = SR_ViewConstants.myCameraToClip._43 / (aDepthValue - SR_ViewConstants.myCameraToClip._33);
+    return (1.0 - saturate(linearDepth / SR_ViewConstants.myCameraFar));
+}

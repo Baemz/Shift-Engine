@@ -1,0 +1,16 @@
+
+SR_Sampler SamplerLinearClamp : SR_SamplerRef_Linear_Clamp;
+SR_Sampler SamplerLinearWrap : SR_SamplerRef_Linear_Wrap;
+SR_Sampler SamplerLinearMirror : SR_SamplerRef_Linear_Mirror;
+
+SR_Sampler SamplerPointClamp : SR_SamplerRef_Point_Clamp;
+SR_Sampler SamplerPointWrap : SR_SamplerRef_Point_Wrap;
+SR_Sampler SamplerPointMirror : SR_SamplerRef_Point_Mirror;
+
+SR_Sampler SamplerAnisoClamp : SR_SamplerRef_Aniso_Clamp;
+SR_Sampler SamplerAnisoWrap : SR_SamplerRef_Aniso_Wrap;
+SR_Sampler SamplerAnisoMirror : SR_SamplerRef_Aniso_Mirror;
+
+SR_Sampler SamplerCmpLinearClamp : SR_SamplerRef_CmpGreater_Linear_Clamp;
+SR_Sampler SamplerCmpPointClamp : SR_SamplerRef_CmpGreater_Point_Clamp;
+SR_Sampler SamplerCmpAnisoClamp : SR_SamplerRef_CmpGreater_Aniso_Clamp;

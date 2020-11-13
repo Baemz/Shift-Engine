@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Final|x64">
+      <Configuration>Final</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SG_Camera.cpp" />
+    <ClCompile Include="SG_CommonRenderStates.cpp" />
+    <ClCompile Include="SG_DebugPrimitives.cpp" />
+    <ClCompile Include="SG_DirectionalLight.cpp" />
+    <ClCompile Include="SG_DynamicSky.cpp" />
+    <ClCompile Include="SG_EnvironmentConstants.cpp" />
+    <ClCompile Include="SG_FrameResources.cpp" />
+    <ClCompile Include="SG_Frustum.cpp" />
+    <ClCompile Include="SG_GraphicsModule.cpp" />
+    <ClCompile Include="SG_GraphicsProfiler.cpp" />
+    <ClCompile Include="SG_Light.cpp" />
+    <ClCompile Include="SG_LodPresets.cpp" />
+    <ClCompile Include="SG_Pointlight.cpp" />
+    <ClCompile Include="SG_Raytracer.cpp" />
+    <ClCompile Include="SG_MaterialFactory.cpp" />
+    <ClCompile Include="SG_MeshCache.cpp" />
+    <ClCompile Include="SG_MeshInstance.cpp" />
+    <ClCompile Include="SG_MeshStreamer.cpp" />
+    <ClCompile Include="SG_ModelLoader.cpp" />
+    <ClCompile Include="SG_PostEffects.cpp" />
+    <ClCompile Include="SG_RaytracingMesh.cpp" />
+    <ClCompile Include="SG_RenderQueue.cpp" />
+    <ClCompile Include="SG_RenderQueues.cpp" />
+    <ClCompile Include="SG_RenderStats.cpp" />
+    <ClCompile Include="SG_Model.cpp" />
+    <ClCompile Include="SG_RenderData.cpp" />
+    <ClCompile Include="SG_ShadowConstants.cpp" />
+    <ClCompile Include="SG_Shadows.cpp" />
+    <ClCompile Include="SG_StaticMesh.cpp" />
+    <ClCompile Include="SG_Mesh.cpp" />
+    <ClCompile Include="SG_Material.cpp" />
+    <ClCompile Include="SGraphics_Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Final|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SG_SceneGraph.cpp" />
+    <ClCompile Include="SG_Terrain.cpp" />
+    <ClCompile Include="SG_LightCulling.cpp" />
+    <ClCompile Include="SG_View.cpp" />
+    <ClCompile Include="SG_ViewManager.cpp" />
+    <ClCompile Include="SG_Voxelizer.cpp" />
+    <ClCompile Include="SG_World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SG_CommonRenderStates.h" />
+    <ClInclude Include="SG_DebugPrimitives.h" />
+    <ClInclude Include="SG_DrawSubmitStructs.h" />
+    <ClInclude Include="SG_EnvironmentConstants.h" />
+    <ClInclude Include="SG_FrameResources.h" />
+    <ClInclude Include="SG_Frustum.h" />
+    <ClInclude Include="SG_GraphicsModule.h" />
+    <ClInclude Include="SG_GraphicsProfiler.h" />
+    <ClInclude Include="SG_GraphicsSettings.h" />
+    <ClInclude Include="SG_LodPresets.h" />
+    <ClInclude Include="SG_MeshHeader.h" />
+    <ClInclude Include="SG_Pointlight.h" />
+    <ClInclude Include="SG_Raytracer.h" />
+    <ClInclude Include="SG_MeshCache.h" />
+    <ClInclude Include="SG_MeshInstance.h" />
+    <ClInclude Include="SG_MeshStreamer.h" />
+    <ClInclude Include="SG_ModelLoader.h" />
+    <ClInclude Include="SG_PostEffects.h" />
+    <ClInclude Include="SG_RaytracingMesh.h" />
+    <ClInclude Include="SG_RenderQueue.h" />
+    <ClInclude Include="SG_RenderType.h" />
+    <ClInclude Include="SG_RenderQueues.h" />
+    <ClInclude Include="SG_ShadowConstants.h" />
+    <ClInclude Include="SG_Terrain.h" />
+    <ClInclude Include="SG_ViewSettings.h" />
+    <ClInclude Include="SG_RenderStats.h" />
+    <ClInclude Include="SG_Shadows.h" />
+    <ClInclude Include="SG_LightCulling.h" />
+    <ClInclude Include="SG_View.h" />
+    <ClInclude Include="SG_ViewManager.h" />
+    <ClInclude Include="SG_Voxelizer.h" />
+    <ClInclude Include="SG_World.h" />
+    <None Include="..\..\Data\Shaders\Converters.hlsli" />
+    <None Include="..\..\Data\Shaders\FXAA.hlsli" />
+    <None Include="..\..\Data\Shaders\GeneralIncludes.hlsli" />
+    <None Include="..\..\Data\Shaders\GeneralShaderInterop.h" />
+    <None Include="..\..\Data\Shaders\Luminance.hlsli" />
+    <None Include="..\..\Data\Shaders\NormalEncode.hlsli" />
+    <None Include="..\..\Data\Shaders\PBR.hlsli">
+      <FileType>CppHeader</FileType>
+    </None>
+    <ClInclude Include="SG_Camera.h" />
+    <ClInclude Include="SG_DirectionalLight.h" />
+    <ClInclude Include="SG_DynamicSky.h" />
+    <ClInclude Include="SG_Light.h" />
+    <ClInclude Include="SG_MaterialFactory.h" />
+    <ClInclude Include="SG_Model.h" />
+    <ClInclude Include="SG_RenderData.h" />
+    <ClInclude Include="SG_StaticMesh.h" />
+    <ClInclude Include="SG_Mesh.h" />
+    <ClInclude Include="SG_Material.h" />
+    <ClInclude Include="SGraphics_Precompiled.h" />
+    <ClInclude Include="SG_SceneGraph.h" />
+    <None Include="..\..\Data\Shaders\ShadowMapCSM.hlsli" />
+    <None Include="..\..\Data\Shaders\Sky.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\CommonStructs.hlsli" />
+    <None Include="..\..\Data\Shaders\FramePersistentResources.hlsli" />
+    <None Include="..\..\Data\Shaders\Globals.hlsli" />
+    <None Include="..\..\Data\Shaders\PBR_2.hlsli" />
+    <None Include="..\..\Data\Shaders\PBR_Structs.hlsli" />
+    <None Include="..\..\Data\Shaders\SpaceHelpers.hlsli" />
+    <None Include="..\..\Data\Shaders\StaticSamplers.hlsli" />
+    <None Include="..\..\Data\Shaders\Utilities.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_CommonVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_DataCollector_AlphaMask_GBufferPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_DataCollector_GBufferPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimpleInstancedVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimplePS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimpleVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\SkyPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\SkyVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\FullscreenQuadVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\DirectionalLight.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\DirectionalLight_Compute.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\HDR_Tonemap.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Bloom_Luminance.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Bloom_Blur.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Copy.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Add.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Bloom_Add.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\PostFX_AA.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Light_Compute.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_DepthTest.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\SSAO.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Light_Compute2.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_VoxelizePS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_VoxelInstancedVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_VoxelizeGS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_VoxelizeVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\VoxelConeTracing_Common.hlsli" />
+    <None Include="..\..\Data\Shaders\VoxelSceneClear.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Object_VoxelGS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\VoxelSceneRelight.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Sky_Compute.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\Compute_Blur.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{6672C4B8-9C3A-40F4-ABD3-B38AE1381F5F}</ProjectGuid>
+    <RootNamespace>Graphics</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SGraphics_Precompiled.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\SRender;..\SCore;..\SUtilities;..\SEntitySystem;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SGraphics_Precompiled.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\SRender;..\SCore;..\SUtilities;..\SEntitySystem;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SGraphics_Precompiled.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>_FINAL;IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\SRender;..\SCore;..\SUtilities;..\SEntitySystem;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

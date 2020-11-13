@@ -1,0 +1,1 @@
+#include "SGraphics_Precompiled.h"

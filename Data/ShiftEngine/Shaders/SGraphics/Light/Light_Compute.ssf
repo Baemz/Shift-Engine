@@ -1,0 +1,107 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_Depth.sshf"
+import "SGraphics/Light/DirectLight.sshf"
+import "SGraphics/Light/IndirectLight.sshf"
+import "SGraphics/Light/Shadow.sshf"
+import "SGraphics/Light/Light_TiledCulling.sshf"
+import "SGraphics/VXGI/VoxelConeTrace.sshf"
+
+SR_Texture2D colorTexture : SR_TextureRef_GBuffer_Color;
+SR_Texture2D normalTexture : SR_TextureRef_GBuffer_Normal;
+SR_Texture2D armTexture : SR_TextureRef_GBuffer_ARM;
+SR_Texture2D emissionTexture : SR_TextureRef_GBuffer_Optional_Emission;
+SR_Texture2D ambientOcclusionTexture : SR_TextureRef_AmbientOcclusion;
+
+SR_Texture2DRW<float4> outLightTexture : SR_TextureRW0;
+
+SR_StructuredBuffer<SR_Light> Lights : SR_Buffer0;
+
+#ifdef ENABLE_HEATMAP_DEBUG
+SR_Texture2D _debug_TileHeatmap : SR_Texture0;
+#endif
+
+[numthreads(TILE_SIZE, TILE_SIZE, 1)]
+void main(uint3 threadID : SV_DispatchThreadID, uint3 aGroupIndex : SV_GroupID, uint3 aGroupThreadIndex : SV_GroupThreadID)
+{
+	float2 Resolution = (float2)SR_GetResolution(outLightTexture);
+    if (threadID.x > (uint)Resolution.x || threadID.y > (uint)Resolution.y)
+        return;
+
+	int3 sampleLocation = int3(threadID.xy, 0);
+	float2 uv = SR_PixelToUV(sampleLocation.xy, Resolution);
+	float depthSample = SR_LoadDepthAtPixel(sampleLocation.xy);
+	float3 worldPosition = SR_ClipToWorld(uv, depthSample);
+
+	if (depthSample == 0)
+		return;
+		
+	float4 colorSample = SR_Load(colorTexture, sampleLocation);
+	float3 normalSample = normalize(SR_Load(normalTexture, sampleLocation).xyz * 2.0 - 1.0);
+	float3 armSample = SR_Load(armTexture, sampleLocation).rgb;
+    
+	float3 toCamera = normalize(SR_ViewConstants.myCameraPosition - worldPosition);
+    ObjectAttributes attributes;
+	attributes.myWorldPosition = worldPosition;
+	attributes.myNormal = normalSample;
+	attributes.myDiffuse = colorSample.rgb;
+	attributes.myAO = armSample.r;
+	attributes.myRoughness = armSample.g;
+	attributes.myMetallic = armSample.b;
+
+	float3 directLight = (float3)0;
+    float shadowFactor = GetShadowFactor(worldPosition, uv);
+    if (shadowFactor > 0.0)
+	    directLight += shadowFactor * DirectLight(attributes, toCamera, SR_EnvironmentConstants.myToSunDirection, SR_EnvironmentConstants.mySunColor, SR_EnvironmentConstants.mySunIntensity, 1.0);
+    
+	// Dynamic lights
+	uint tileIndex = GetTileIndex(aGroupIndex.xy);
+	SR_TileData tileData = LightTileData[tileIndex];
+
+	SR_Unroll
+	for (uint i = 0; i < MAX_NUM_LIGHTS_PER_TILE; ++i)
+	{
+		int lightIndex = tileData.myLightIndices[i];
+		if (lightIndex > -1)
+		{
+			SR_Light light = Lights[lightIndex];
+			float3 toLightDir = normalize(SR_ViewConstants.myCameraPosition - light.myPosition);
+				// Do appropriate light calculations here
+				float toLightDistance = distance(light.myPosition, worldPosition);
+			float lightRange = light.myRange * light.myRange;
+			float toLightDist2 = toLightDistance * toLightDistance;
+				float linearAttenuation = saturate(1.f - (toLightDist2 / lightRange));
+			float physicalAttenuation = 1.f / toLightDistance;
+			float attenuation = linearAttenuation * physicalAttenuation;
+				if (light.myType == SR_LightType_Pointlight)
+			{
+				// Pointlight specific calculations?
+			}
+			else if (light.myType == SR_LightType_Spotlight)
+			{
+				// TODO: Replace with Umbra/Penumbra calc using 2 angles.
+	    			float cutPoint = 1.f - ((light.myAngle / 2.f) / 180.f);
+    			float a = saturate(dot(normalize(-toLightDir), normalize(light.myDirection)));
+    			float angleAttenuation = saturate((a - cutPoint) * (1.f / (1.f - cutPoint)));
+					attenuation *= angleAttenuation;
+			}
+
+			directLight += DirectLight(attributes, toCamera, toLightDir, light.myColor, light.myIntensity, attenuation);
+		}
+	}
+
+	float ambientOcclusion = SR_SampleLod0(SamplerLinearClamp, ambientOcclusionTexture, uv).r;
+    float3 ambientLight = ambientOcclusion * AmbientLight(attributes, toCamera) * SR_EnvironmentConstants.myAmbientLightIntensity;
+
+    float3 emissionSample = SR_Load(emissionTexture, sampleLocation).rgb;
+	
+	float3 tileColor = (float3)0;
+#ifdef ENABLE_HEATMAP_DEBUG
+	if (aGroupThreadIndex.x > 0 && aGroupThreadIndex.y > 0 &&
+		aGroupThreadIndex.x < (TILE_SIZE - 1) && aGroupThreadIndex.y < (TILE_SIZE - 1))
+	{
+		tileColor = SR_Load(_debug_TileHeatmap, int3(aGroupIndex.xy, 0)).rgb;
+	}
+#endif
+
+	outLightTexture[sampleLocation.xy] = float4(directLight + ambientLight + tileColor, 1.0);
+}

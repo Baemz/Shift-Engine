@@ -1,0 +1,103 @@
+import "SRender/SR_StaticSamplers.sshf"
+import "SRender/SR_EnvironmentConstants.sshf"
+import "SGraphics/VXGI/VXGI.sshf"
+import "SGraphics/Light/Light_Structs.sshf"
+
+RWTexture3D<float4> EncodedColorData : register(u0);
+RWTexture3D<float4> EncodedNormalData : register(u1);
+RWTexture3D<float4> outLitVoxels : register(u2);
+SR_StructuredBuffer<SR_Light> Lights : SR_Buffer0;
+
+SR_ConstantBuffer VoxelSettings : SR_ConstantBuffer0
+{
+    float3 VoxelSceneMinPos;
+    float VoxelSize;
+    float3 VoxelSceneCenter;
+    float VoxelSizeInversed;
+    float VoxelSceneTexelSize;
+	float VoxelSceneWorldSize;
+	float VoxelWorldScale;
+    uint VoxelSceneResolution;
+};
+SR_ConstantBuffer Lights : SR_ConstantBuffer1
+{
+    uint NumLights;
+}
+
+float3 VoxelToWorld(uint3 aPos)
+{
+    float3 result = float3(aPos);
+    result *= VoxelSize;
+
+    return result + VoxelSceneMinPos;
+}
+float3 WorldToVoxel(float3 aPos)
+{
+    float3 voxelPos = aPos - VoxelSceneMinPos;
+    return voxelPos * VoxelWorldScale;
+}
+
+float TraceShadow(float3 position, float3 direction, float maxTracingDistance) 
+{
+    float currentDistance = VoxelSize;
+    const float3 startPos = position + direction * VoxelSize * 2;
+
+    float visibility = 0.0;
+    while (visibility <= 1.0 && currentDistance <= maxTracingDistance) 
+    {
+        float3 currentConePosition = startPos + direction * currentDistance;
+
+        const float alphaSample = EncodedColorData[WorldToVoxel(currentConePosition)].a;
+        if (alphaSample < 1.0)
+            return 0.0;
+
+        visibility += alphaSample * 0.25;
+
+        currentDistance += VoxelSize;
+    }
+
+    return 1.0 - visibility;
+}
+
+float CalculateShadowingFactor(float3 aWorldPos, float3 aNormal)
+{
+    return TraceShadow(aWorldPos, SR_EnvironmentConstants.myToSunDirection, 100.f * VoxelSize);
+}
+
+[numthreads(4,4,4)]
+void main(uint3 aThreadId : SV_DispatchThreadId)
+{
+    const uint3 voxelIndex = aThreadId;
+    if(voxelIndex.x >= VoxelSceneResolution ||
+		voxelIndex.y >= VoxelSceneResolution ||
+		voxelIndex.z >= VoxelSceneResolution) 
+        return;
+
+    int4 samplePos = int4(voxelIndex, 0);
+	float4 albedo = EncodedColorData[samplePos.xyz];
+	float4 normal = EncodedNormalData[samplePos.xyz];
+    normal.xyz = normalize(normal.xyz * 2.0 - 1.0);
+
+    float3 outColor = (float3)0;
+    float3 worldPos = VoxelToWorld(voxelIndex);
+    float visibilityFactor = CalculateShadowingFactor(voxelIndex, normal.xyz);
+    outColor += albedo * dot(SR_EnvironmentConstants.myToSunDirection, normal.xyz) * visibilityFactor;
+    
+    for (uint i = 0; i < NumLights; ++i)
+    {
+        SR_Light light = Lights[i];
+		float toLightDistance = distance(light.myPosition, worldPos);
+		float lightRange = light.myRange * light.myRange;
+		float toLightDist2 = toLightDistance * toLightDistance;
+
+		float linearAttenuation = saturate(1.f - (toLightDist2 / lightRange));
+		float physicalAttenuation = 1.f / toLightDistance;
+		float attenuation = linearAttenuation * physicalAttenuation;
+        float3 toLight = normalize(light.myPosition - worldPos);
+        outColor += albedo.rgb * saturate(dot(toLight, normal.xyz)) * attenuation * light.myColor * light.myIntensity;
+    }
+    outLitVoxels[voxelIndex] = float4(outColor, 1.0);
+
+	EncodedColorData[samplePos.xyz] = (float4)0;
+	EncodedNormalData[samplePos.xyz] = (float4)0;
+}

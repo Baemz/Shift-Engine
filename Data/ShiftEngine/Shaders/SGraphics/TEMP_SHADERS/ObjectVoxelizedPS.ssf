@@ -1,0 +1,80 @@
+import "SRender/SR_StaticSamplers.sshf"
+import "SGraphics/VXGI/VXGI.sshf"
+
+SR_Texture2D colorTexture : SR_Texture0;
+SR_Texture2D normalTexture : SR_Texture1;
+//SR_Texture2D aoTexture : SR_Texture2;
+//SR_Texture2D roughnessTexture : SR_Texture3;
+//SR_Texture2D metallicTexture : SR_Texture4;
+
+RWTexture3D<uint> outEncodedColorData : register(u0);
+RWTexture3D<uint> outEncodedNormalData : register(u1);
+RWTexture3D<uint> outEncodedEmissionData : register(u2);
+
+SR_ConstantBuffer VoxelSettings : SR_ConstantBuffer0
+{
+    float3 VoxelSceneMinPos;
+    float VoxelSize;
+    float3 VoxelSceneCenter;
+    float VoxelSizeInversed;
+    float VoxelSceneTexelSize;
+	float VoxelSceneWorldSize;
+	float VoxelWorldScale;
+    uint VoxelSceneResolution;
+};
+
+void WriteRGBA8Avg(RWTexture3D<uint> aTexture, int3 aCoords, float4 aValue)
+{
+    float4 value = aValue;
+    value.rgb *= 255.0;
+    uint newValue = ConvertFloat4ToRGBA8(value);
+    uint prevStored = 0;
+    uint currentStored;
+    
+    for (uint i = 0; i < 255; ++i)
+    {
+        SR_AtomicCompareExchange(aTexture[aCoords], prevStored, newValue, currentStored);
+        if (currentStored == prevStored)
+            break;
+        
+        prevStored = currentStored;
+        float4 rValue = ConvertRGBA8ToFloat4(currentStored);
+        rValue.rgb *= rValue.a;
+        float4 currentValue = rValue + value;
+        currentValue.rgb /= currentValue.a;
+        newValue = ConvertFloat4ToRGBA8(currentValue);
+    }
+}
+
+struct InputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myNormal : NORMAL;
+    //nointerpolation float4 myAABB : AABB;
+    float3 myWorldPos : WORLD_POSITION;
+    float2 myUV : UV;
+};
+
+bool Inside(const uint3 pos)
+{ 
+	const uint size = VoxelSceneResolution;
+	return (abs(pos.x) < size) && (abs(pos.y) < size) && (abs(pos.z) < size);
+}
+
+void main(InputStruct input)
+{
+    if(!Inside(input.myWorldPos))
+		discard;
+
+    float4 color = colorTexture.Sample(SamplerAnisoWrap, input.myUV);
+    float3 normalSample = normalTexture.Sample(SamplerAnisoWrap, input.myUV).xyz * 2.0 - 1.0;
+    float3 normal3 = normalize(mul(input.myTangentSpaceMatrix, normalSample));
+    float4 normal4 = float4(normal3 * 0.5 + 0.5, 1.0);
+    
+    // float4 emission;
+
+    int3 position = int3(input.myWorldPos);
+    WriteRGBA8Avg(outEncodedColorData, position, float4(color.rgb, 1.0f));
+    WriteRGBA8Avg(outEncodedNormalData, position, normal4);
+}

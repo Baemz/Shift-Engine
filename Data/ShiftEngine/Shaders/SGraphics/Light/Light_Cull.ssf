@@ -1,0 +1,147 @@
+import "SGraphics/Light/Light.sshf"
+import "SGraphics/Light/Light_TiledCulling.sshf"
+import "SRender/SR_Depth.sshf"
+
+SR_StructuredBuffer<SR_Light> Lights : SR_Buffer0;
+SR_StructuredBufferRW<SR_TileData> OutTileData : SR_BufferRW0;
+
+#ifdef ENABLE_HEATMAP_DEBUG
+SR_Texture2DRW<float4> _debug_HeatmapOut : SR_TextureRW0;
+#endif
+SR_ConstantBuffer TileCullingConstants : SR_ConstantBuffer0
+{
+    uint NumLights;
+}
+
+#define NUM_THREADS_X TILE_SIZE
+#define NUM_THREADS_Y TILE_SIZE
+#define NUM_THREADS_PER_TILE (NUM_THREADS_X*NUM_THREADS_Y)
+
+float4 ConvertProjToView( float4 p )
+{
+    p = mul(SR_ViewConstants.myClipToCamera, p);
+    p /= p.w;
+    return p;
+}
+float ConvertProjDepthToView( float z )
+{
+    z = 1.f / (z*SR_ViewConstants.myClipToCamera._43 + SR_ViewConstants.myClipToCamera._44);
+    return z;
+}
+SR_TileFrustum GetTileFrustum(uint2 aGroupIdx)
+{
+    SR_TileFrustum tileFrustum;	
+    {   // construct frustum for this tile
+        uint pxm = TILE_SIZE*aGroupIdx.x;
+        uint pym = TILE_SIZE*aGroupIdx.y;
+        uint pxp = TILE_SIZE*(aGroupIdx.x+1);
+        uint pyp = TILE_SIZE*(aGroupIdx.y+1);
+
+        uint2 numTiles = GetNumTiles();
+        uint windowWidthEvenlyDivisibleByTileSize = TILE_SIZE * numTiles.x;
+        uint windowHeightEvenlyDivisibleByTileSize = TILE_SIZE * numTiles.y;
+
+        // four corners of the tile, clockwise from top-left
+        float4 frustum[4];
+        frustum[0] = ConvertProjToView( float4( pxm/(float)windowWidthEvenlyDivisibleByTileSize*2.f-1.f, (windowHeightEvenlyDivisibleByTileSize-pym)/(float)windowHeightEvenlyDivisibleByTileSize*2.f-1.f,1.f,1.f) );
+        frustum[1] = ConvertProjToView( float4( pxp/(float)windowWidthEvenlyDivisibleByTileSize*2.f-1.f, (windowHeightEvenlyDivisibleByTileSize-pym)/(float)windowHeightEvenlyDivisibleByTileSize*2.f-1.f,1.f,1.f) );
+        frustum[2] = ConvertProjToView( float4( pxp/(float)windowWidthEvenlyDivisibleByTileSize*2.f-1.f, (windowHeightEvenlyDivisibleByTileSize-pyp)/(float)windowHeightEvenlyDivisibleByTileSize*2.f-1.f,1.f,1.f) );
+        frustum[3] = ConvertProjToView( float4( pxm/(float)windowWidthEvenlyDivisibleByTileSize*2.f-1.f, (windowHeightEvenlyDivisibleByTileSize-pyp)/(float)windowHeightEvenlyDivisibleByTileSize*2.f-1.f,1.f,1.f) );
+
+        // create plane equations for the four sides of the frustum, 
+        // with the positive half-space outside the frustum (and remember, 
+        // view space is left handed, so use the left-hand rule to determine 
+        // cross product direction)
+        for(uint i=0; i<4; i++)
+            tileFrustum.myPlanes[i] = CreateFrustumPlane( frustum[i], frustum[(i+1)&3] );
+    }
+
+    return tileFrustum;
+}
+
+groupshared uint ldsLightIndexCounter;
+groupshared SR_TileData ldsTileData;
+groupshared uint ldsMinDepth;
+groupshared uint ldsMaxDepth;
+
+[numthreads(NUM_THREADS_X, NUM_THREADS_Y, 1)]
+void main(uint3 aThreadIndex : SV_DispatchThreadID, uint3 aGroupThreadIndex : SV_GroupThreadID, uint3 aGroupIndex : SV_GroupID)
+{
+    uint localIdxFlattened = aGroupThreadIndex.x + aGroupThreadIndex.y * NUM_THREADS_X;
+    uint tileIdxFlattened = GetTileIndex(aGroupIndex.xy);
+
+    if(localIdxFlattened == 0 )
+    {
+        ldsMinDepth = 0x7f7fffff;
+        ldsMaxDepth = 0.0;
+        ldsLightIndexCounter = 0;
+        ldsTileData.myNumLightsActive = 0;
+        for (uint i = 0; i < MAX_NUM_LIGHTS_PER_TILE; ++i)
+            ldsTileData.myLightIndices[i] = -1;
+    }
+    SR_GroupMemoryBarrierSync();
+
+#ifdef USE_DEPTH_CULLING
+	float depthSample = SR_LoadDepthAtPixel(aThreadIndex.xy);
+    depthSample = ConvertProjDepthToView(depthSample);
+    if (depthSample != 0.0)
+    {
+        uint2 old;
+        uint depthAsUint = asuint(depthSample);
+        SR_AtomicMin(ldsMinDepth, depthAsUint, old.x);
+        SR_AtomicMax(ldsMaxDepth, depthAsUint, old.y);
+    }
+    SR_GroupMemoryBarrierSync();
+    float minDepth = asfloat(ldsMinDepth);
+    float maxDepth = asfloat(ldsMaxDepth);
+#else
+    float minDepth = 0.0;
+    float maxDepth = 0x7f7fffff;
+
+#endif
+
+
+    SR_TileFrustum frustum = GetTileFrustum(aGroupIndex.xy);
+
+    for (uint i = 0; i < NumLights; i += NUM_THREADS_PER_TILE)
+    {
+        uint localLightIndex = localIdxFlattened + i;
+
+        if (localLightIndex < NumLights)
+        {
+            SR_Light light = Lights[localLightIndex];
+            light.myPosition = SR_Transform(SR_ViewConstants.myWorldToCamera, light.myPosition);
+            if (IsInsideTileFrustum(frustum, light, minDepth, maxDepth))
+            {
+                uint dstIndex = 0;
+                SR_AtomicAdd(ldsLightIndexCounter, 1, dstIndex);
+                if (dstIndex >= MAX_NUM_LIGHTS_PER_TILE)
+                    break;
+
+                ldsTileData.myLightIndices[dstIndex] = localLightIndex;
+            }
+        }
+    }
+    SR_GroupMemoryBarrierSync();
+
+    if (localIdxFlattened == 0)
+    {
+        ldsTileData.myNumLightsActive = ldsLightIndexCounter;
+        OutTileData[tileIdxFlattened] = ldsTileData;
+
+#ifdef ENABLE_HEATMAP_DEBUG
+        float3 _debug_color;
+        if (ldsLightIndexCounter == 0)
+            _debug_color = float3(0.1, 0.1, 0.3);
+        else if (ldsLightIndexCounter >= MAX_NUM_LIGHTS_PER_TILE)
+            _debug_color = float3(1.0, 0.1, 1.0);
+        else
+        {
+            _debug_color.b = (ldsLightIndexCounter > 0 && ldsLightIndexCounter <= 10) ? 1.0f : 0.0f;
+            _debug_color.g = (ldsLightIndexCounter > 10 && ldsLightIndexCounter <= 45) ? 1.0f : 0.0f;
+            _debug_color.r = (ldsLightIndexCounter > 45) ? 1.0f : 0.0f;
+        }
+        _debug_HeatmapOut[aGroupIndex.xy] = float4(_debug_color, 1.0f);
+#endif
+    }
+}

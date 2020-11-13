@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="NodeEditor\crude_json.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\imgui_bezier_math.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\imgui_canvas.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\imgui_extra_math.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\imgui_node_editor.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeEditor\imgui_node_editor_internal.h">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>NodeEditor\NodeGraph\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeGraph.h">
+      <Filter>NodeEditor\NodeGraph\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_Editor.h">
+      <Filter>EditorBase</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_EditorShelf.h">
+      <Filter>EditorBase</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_NodeGraphEditor.h">
+      <Filter>NodeEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_ScreenToWorld.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_TransformGizmo.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_ScaleGizmo.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_AxisGizmoBase.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_AssetImporter.h">
+      <Filter>Windows\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_AssetRepository.h">
+      <Filter>Windows\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_AssetTypes.h">
+      <Filter>Windows\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_ConsoleWindow.h">
+      <Filter>Windows\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_GraphicsWorld.h">
+      <Filter>Windows\World</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_DynamicSky.h">
+      <Filter>Windows\World</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_MaterialEditor.h">
+      <Filter>Windows\Editors\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_GraphicsSettings.h">
+      <Filter>Windows\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_EditorSubModule.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_LevelEditor.h">
+      <Filter>Windows\Editors\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_TextureViewer.h">
+      <Filter>Windows\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_Statistics.h">
+      <Filter>Windows\Statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_RegisterWindows.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="STools_LogWindow.h">
+      <Filter>Windows\Debug</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NodeEditor\crude_json.cpp">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeEditor\imgui_canvas.cpp">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeEditor\imgui_node_editor.cpp">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeEditor\imgui_node_editor_api.cpp">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>NodeEditor\NodeGraph\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeGraph.cpp">
+      <Filter>NodeEditor\NodeGraph\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_Editor.cpp">
+      <Filter>EditorBase</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_EditorShelf.cpp">
+      <Filter>EditorBase</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_NodeGraphEditor.cpp">
+      <Filter>NodeEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_ScreenToWorld.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_TransformGizmo.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_ScaleGizmo.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_AxisGizmoBase.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_AssetImporter.cpp">
+      <Filter>Windows\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_AssetRepository.cpp">
+      <Filter>Windows\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_ConsoleWindow.cpp">
+      <Filter>Windows\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_GraphicsWorld.cpp">
+      <Filter>Windows\World</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_DynamicSky.cpp">
+      <Filter>Windows\World</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_MaterialEditor.cpp">
+      <Filter>Windows\Editors\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_GraphicsSettings.cpp">
+      <Filter>Windows\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_EditorSubModule.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_LevelEditor.cpp">
+      <Filter>Windows\Editors\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_TextureViewer.cpp">
+      <Filter>Windows\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_Statistics.cpp">
+      <Filter>Windows\Statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_RegisterWindows.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="STools_LogWindow.cpp">
+      <Filter>Windows\Debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{89e37c31-ffd2-455d-9f19-f269d18f3899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorBase">
+      <UniqueIdentifier>{401524e8-a086-497f-9a8a-a04c11dbd9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor">
+      <UniqueIdentifier>{87cabfe4-a0ad-4170-9f6e-ff1c7befcadb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\ImGUI_NodeEditor">
+      <UniqueIdentifier>{c98dbff6-a7c1-4bac-97c7-1d88532f019e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\ShaderEditor">
+      <UniqueIdentifier>{60305084-351f-4db1-ba10-4cc39a8e98a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\ScriptEditor">
+      <UniqueIdentifier>{fdd435ec-f62a-44dd-9b65-6ac91cf5d548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\MaterialEditor">
+      <UniqueIdentifier>{d23af9ef-3ba1-4d9b-9d0d-7b2322186061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\ObjectEditor">
+      <UniqueIdentifier>{092403c1-be05-400e-9a03-01b2f20ffbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{652079b4-80ee-4361-82cf-e68238616b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\NodeGraph">
+      <UniqueIdentifier>{ca609877-1c9e-4cba-a019-6d3a2ce30afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\NodeGraph\Nodes">
+      <UniqueIdentifier>{2dc2ffd4-fe74-4890-b782-81c2d5fb8477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeEditor\NodeGraph\Graph">
+      <UniqueIdentifier>{c85c5856-37c4-4c8c-b9a3-0a2e6708a4e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{06701dde-ee09-4b91-96b5-64f77316126d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Assets">
+      <UniqueIdentifier>{230d0e53-90ca-466e-ac1a-22f0da740907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Console">
+      <UniqueIdentifier>{b724210b-27b5-48d2-bba0-b72667b0960b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\World">
+      <UniqueIdentifier>{fff558dc-cb57-4345-949f-9f6ea67d13d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Settings">
+      <UniqueIdentifier>{86c0e686-70dd-455c-8f36-556a835fba24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Editors">
+      <UniqueIdentifier>{d0011be1-e69e-402c-bc4b-27c711313984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Editors\Level">
+      <UniqueIdentifier>{43db61b4-3071-49b3-9546-53f0bc185916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Editors\Materials">
+      <UniqueIdentifier>{7c779f00-da6d-4488-b90d-152397f846c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Statistics">
+      <UniqueIdentifier>{412fe027-ef07-4fa1-9f76-18ddeaef137c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Debug">
+      <UniqueIdentifier>{2d9d3d93-dc0e-44ff-98c3-8ff893aadc05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NodeEditor\imgui_bezier_math.inl">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </None>
+    <None Include="NodeEditor\imgui_extra_math.inl">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </None>
+    <None Include="NodeEditor\imgui_node_editor_internal.inl">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NodeEditor\imgui_node_editor.natvis">
+      <Filter>NodeEditor\ImGUI_NodeEditor</Filter>
+    </Natvis>
+  </ItemGroup>
+</Project>

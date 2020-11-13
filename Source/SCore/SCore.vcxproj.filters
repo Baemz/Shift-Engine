@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{d8079fc6-41ee-4899-b4d3-cecc618c94b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{17a16802-85bf-4d12-a7fa-df386415d2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MemoryHandler">
+      <UniqueIdentifier>{5508b1f8-c435-4de1-a892-1c9b497125fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{7ea4c08c-387a-4ba6-a6f2-565e17a9397b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommandLine">
+      <UniqueIdentifier>{5ff13e56-9337-4a08-a9e1-2be5d3245ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{f8e5d935-8273-4e75-8fbf-15f4c1dedee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventHandler">
+      <UniqueIdentifier>{aea0c6af-c3dd-4024-910f-ab19cd7a58f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{7f66b4c9-ff32-4910-acf0-1f194a464556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input/Output">
+      <UniqueIdentifier>{2f18086e-cbe0-4280-9b29-e93325299380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{a2d1fa48-3f64-46b4-9a8c-0a5de784528f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filewatcher">
+      <UniqueIdentifier>{79bad26c-f5ca-4606-9f2b-bba136901c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{077a9234-b788-411a-9d3e-5464826617a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pointers">
+      <UniqueIdentifier>{e7a6cdc2-450d-440a-8737-2c5127b43722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input/Output\File">
+      <UniqueIdentifier>{112375a2-fe5c-4141-8b5d-f3e787d0a475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ErrorHandling">
+      <UniqueIdentifier>{cbc8cf78-7acd-4d3f-81d3-b2a76ec20c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Console">
+      <UniqueIdentifier>{c689a71a-4542-4578-82f7-98cee0d0e66d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Profiler">
+      <UniqueIdentifier>{23ef3c39-0288-449d-a69f-26f18a5c01bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads">
+      <UniqueIdentifier>{f6c7e4b9-337e-44c2-ab62-d666f3aedf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{ba4d646e-f20e-4a9d-a2ed-eaad78f100cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads\Mutex">
+      <UniqueIdentifier>{ba925a5f-c9b2-4a13-b06c-d8cfa37b01ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Natvis">
+      <UniqueIdentifier>{a75efb95-7cac-449a-8d01-5f6b36186fb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads\Semaphore">
+      <UniqueIdentifier>{ab95a373-eb90-43a9-95f6-745d17e908c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads\Event">
+      <UniqueIdentifier>{709c0f77-4621-4c08-adef-7390e8cda55c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads\ThreadPool">
+      <UniqueIdentifier>{6117f935-f781-4301-a57d-f26a0e41d0bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LDF Management">
+      <UniqueIdentifier>{0aa09102-1c69-428c-8688-85c1f67adfd1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SCore_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_CommandLineManager.h">
+      <Filter>CommandLine</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Console.h">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Assert.h">
+      <Filter>ErrorHandling</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Filewatcher.h">
+      <Filter>Filewatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_InputManager.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_File.h">
+      <Filter>Input/Output\File</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_InputStructs.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_KeyCodes.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Message.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MessageHandler.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MessageReciever.h">
+      <Filter>Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Logger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MemoryHandler.h">
+      <Filter>MemoryHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MemoryOperators.h">
+      <Filter>MemoryHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Module.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_ModuleManager.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_RefCounted.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_RefPtr.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_UniquePtr.h">
+      <Filter>Pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_BaseDefines.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_CommonDefines.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_CommonIncludes.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_GlobalDisabledWarnings.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_PlatformDefines.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Profiler.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_ProfilerTags.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_ResourcePool.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_AutoLock.h">
+      <Filter>Threads\Mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Mutex.h">
+      <Filter>Threads\Mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MutexImpl.h">
+      <Filter>Threads\Mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Thread.h">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_ThreadTools.h">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Atomics.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_DirtyFlag.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Misc.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Pair.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Relocate.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Timer.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_VoidData.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Window.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Window_Win64.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Engine.h" />
+    <ClInclude Include="SC_EngineInterface.h" />
+    <ClInclude Include="SC_EnginePaths.h" />
+    <ClInclude Include="SC_Enum.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Memory.h">
+      <Filter>MemoryHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Semaphore.h">
+      <Filter>Threads\Semaphore</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Random.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Event.h">
+      <Filter>Threads\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_ThreadPool.h">
+      <Filter>Threads\ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Future.h">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Function.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_FastEvent.h">
+      <Filter>Threads\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Json.hpp">
+      <Filter>Json</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_IndexAllocator.h" />
+    <ClInclude Include="SC_LDF.h">
+      <Filter>LDF Management</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Singleton.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SCore_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_CommandLineManager.cpp">
+      <Filter>CommandLine</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Config.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Console.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Assert.cpp">
+      <Filter>ErrorHandling</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Filewatcher.cpp">
+      <Filter>Filewatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_InputManager.cpp">
+      <Filter>Input/Output</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_File.cpp">
+      <Filter>Input/Output\File</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_MessageHandler.cpp">
+      <Filter>Input/Output</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Logger.cpp">
+      <Filter>Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_MemoryHandler.cpp">
+      <Filter>MemoryHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Module.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_ModuleManager.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_RefCounted.cpp">
+      <Filter>Pointers</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Profiler.cpp">
+      <Filter>Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_ResourcePool.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Mutex.cpp">
+      <Filter>Threads\Mutex</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_MutexImpl.cpp">
+      <Filter>Threads\Mutex</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Thread.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_ThreadTools.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Relocate.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Timer.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Window.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Window_Win64.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Engine.cpp" />
+    <ClCompile Include="SC_EngineInterface.cpp" />
+    <ClCompile Include="SC_EnginePaths.cpp" />
+    <ClCompile Include="SC_Memory.cpp">
+      <Filter>MemoryHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Semaphore.cpp">
+      <Filter>Threads\Semaphore</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Random.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Event.cpp">
+      <Filter>Threads\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_ThreadPool.cpp">
+      <Filter>Threads\ThreadPool</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Future.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_FastEvent.cpp">
+      <Filter>Threads\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_IndexAllocator.cpp" />
+    <ClCompile Include="SC_Misc.cpp" />
+    <ClCompile Include="SC_LDF.cpp">
+      <Filter>LDF Management</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="SCore.natvis">
+      <Filter>Natvis</Filter>
+    </Natvis>
+  </ItemGroup>
+</Project>

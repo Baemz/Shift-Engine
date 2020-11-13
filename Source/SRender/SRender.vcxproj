@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Final|x64">
+      <Configuration>Final</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{CCC1EA3C-6E7F-43E2-8012-7698044377C1}</ProjectGuid>
+    <RootNamespace>Render</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SRender_Precompiled.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>..\SCore;..\SUtilities;..\SExternal\DirectXShaderCompiler\include;..\SExternal\WinPixEventRuntime\Include\WinPixEventRuntime;..\SExternal\DirectXTex\Include;..\SExternal\ImGui\include;..\SExternal\VulkanSDK\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>_FINAL;_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SRender_Precompiled.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>..\SCore;..\SUtilities;..\SExternal\DirectXShaderCompiler\include;..\SExternal\WinPixEventRuntime\Include\WinPixEventRuntime;..\SExternal\DirectXTex\Include;..\SExternal\ImGui\include;..\SExternal\VulkanSDK\Include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SRender_Precompiled.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>..\SCore;..\SUtilities;..\SExternal\DirectXShaderCompiler\include;..\SExternal\WinPixEventRuntime\Include\WinPixEventRuntime;..\SExternal\DirectXTex\Include;..\SExternal\ImGui\include;..\SExternal\VulkanSDK\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="SR_BufferView_Vk.h" />
+    <ClInclude Include="SR_Buffer_Vk.h" />
+    <ClInclude Include="SR_DDSTextureLoader_DX12.h" />
+    <ClInclude Include="imgui_impl_dx12.h" />
+    <ClInclude Include="imgui_impl_vulkan.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="SR_Buffer.h" />
+    <ClInclude Include="SR_BufferView.h" />
+    <ClInclude Include="SR_BufferView_DX12.h" />
+    <ClInclude Include="SR_Buffer_DX12.h" />
+    <ClInclude Include="SR_CommandAllocator_DX12.h" />
+    <ClInclude Include="SR_CommandList.h" />
+    <ClInclude Include="SR_CommandListPool_DX12.h" />
+    <ClInclude Include="SR_CommandList_DX12.h" />
+    <ClInclude Include="SR_DescriptorHeap_DX12.h" />
+    <ClInclude Include="SR_DescriptorRing_DX12.h" />
+    <ClInclude Include="SR_Descriptor_DX12.h" />
+    <ClInclude Include="SR_Fence.h" />
+    <ClInclude Include="SR_FenceManager_DX12.h" />
+    <ClInclude Include="SR_Format.h" />
+    <ClInclude Include="SR_ForwardDeclarations_Vk.h" />
+    <ClInclude Include="SR_GBuffer.h" />
+    <ClInclude Include="SR_GBufferDefines.h" />
+    <ClInclude Include="SR_GraphicsContext_Vk.h" />
+    <ClInclude Include="SR_PSOKey.h" />
+    <ClInclude Include="SR_QueueManager_Vk.h" />
+    <ClInclude Include="SR_RenderEnums_Vk.h" />
+    <ClInclude Include="SR_RenderStates.h" />
+    <ClInclude Include="SR_RenderTarget_Vk.h" />
+    <ClInclude Include="SR_ResourceBindings.h" />
+    <ClInclude Include="SR_ResourceBindings_DX12.h" />
+    <ClInclude Include="SR_ResourceRefs.h" />
+    <ClInclude Include="SR_GraphicsEngineEnums.h" />
+    <ClInclude Include="SR_Profiler.h" />
+    <ClInclude Include="SR_GraphicsResource.h" />
+    <ClInclude Include="SR_HoldDebugCopy.h" />
+    <ClInclude Include="SR_RenderDefines.h" />
+    <ClInclude Include="SR_RenderEnums.h" />
+    <ClInclude Include="SR_RenderEnums_DX12.h" />
+    <ClInclude Include="SR_RenderInterface.h" />
+    <ClInclude Include="SR_RenderTarget_DX12.h" />
+    <ClInclude Include="SR_RenderThread.h" />
+    <ClInclude Include="SR_RenderThreadPool.h" />
+    <ClInclude Include="SR_ResourceTracking_DX12.h" />
+    <ClInclude Include="SR_ResourceTracking_Vk.h" />
+    <ClInclude Include="SR_RootSignature_DX12.h" />
+    <ClInclude Include="SR_ShaderByteCode.h" />
+    <ClInclude Include="SR_ShaderCompiler.h" />
+    <ClInclude Include="SR_ShaderCompiler_DX12.h" />
+    <ClInclude Include="SR_ShaderState.h" />
+    <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="SR_Header_DX12.h" />
+    <ClInclude Include="SR_Converters_DX12.h" />
+    <ClInclude Include="SR_GeneralShaderInterop.h" />
+    <ClInclude Include="SR_GraphicsContext.h" />
+    <ClInclude Include="SR_GraphicsContext_DX12.h" />
+    <ClInclude Include="SR_GraphicsDefinitions.h" />
+    <ClInclude Include="SR_GraphicsDevice.h" />
+    <ClInclude Include="SR_GraphicsDevice_DX12.h" />
+    <ClInclude Include="SR_GraphicsDevice_Vk.h" />
+    <ClInclude Include="SR_QueueManager.h" />
+    <ClInclude Include="SR_QueueManager_DX12.h" />
+    <ClInclude Include="SR_GraphicsResources.h" />
+    <ClInclude Include="SR_RenderStateDescs.h" />
+    <ClInclude Include="SR_ShaderState_DX12.h" />
+    <ClInclude Include="SRender_Precompiled.h" />
+    <ClInclude Include="SR_RenderInclude.h" />
+    <ClInclude Include="SR_RenderTarget.h" />
+    <ClInclude Include="SR_RingBuffer.h" />
+    <ClInclude Include="SR_RingBuffer_DX12.h" />
+    <ClInclude Include="SR_ImGUI.h" />
+    <ClInclude Include="SR_ShaderState_Vk.h" />
+    <ClInclude Include="SR_StateCache_DX12.h" />
+    <ClInclude Include="SR_Strings.h" />
+    <ClInclude Include="SR_SwapChain.h" />
+    <ClInclude Include="SR_SwapChain_DX12.h" />
+    <ClInclude Include="SR_SwapChain_Vk.h" />
+    <ClInclude Include="SR_TempResourcePool.h" />
+    <ClInclude Include="SR_TempResourcePool_DX12.h" />
+    <ClInclude Include="SR_Texture.h" />
+    <ClInclude Include="SR_TextureBuffer.h" />
+    <ClInclude Include="SR_TextureBuffer_DX12.h" />
+    <ClInclude Include="SR_TextureBuffer_Vk.h" />
+    <ClInclude Include="SR_TextureCache.h" />
+    <ClInclude Include="SR_TextureResource.h" />
+    <ClInclude Include="SR_Texture_DX12.h" />
+    <ClInclude Include="SR_Texture_Vk.h" />
+    <ClInclude Include="SR_TrackedResource.h" />
+    <ClInclude Include="SR_ViewConstants.h" />
+    <ClInclude Include="SR_VertexLayout.h" />
+    <ClInclude Include="SR_Converters_Vk.h" />
+    <ClInclude Include="SR_Header_Vk.h" />
+    <ClInclude Include="SR_WaitEvent.h" />
+    <ClInclude Include="SR_WICTextureLoader_DX12.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SR_BufferView_Vk.cpp" />
+    <ClCompile Include="SR_Buffer_Vk.cpp" />
+    <ClCompile Include="SR_DDSTextureLoader_DX12.cpp" />
+    <ClCompile Include="imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui_impl_vulkan.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="SR_Buffer.cpp" />
+    <ClCompile Include="SR_BufferView.cpp" />
+    <ClCompile Include="SR_BufferView_DX12.cpp" />
+    <ClCompile Include="SR_Buffer_DX12.cpp" />
+    <ClCompile Include="SR_CommandAllocator_DX12.cpp" />
+    <ClCompile Include="SR_CommandList.cpp" />
+    <ClCompile Include="SR_CommandListPool_DX12.cpp" />
+    <ClCompile Include="SR_CommandList_DX12.cpp" />
+    <ClCompile Include="SR_DescriptorHeap_DX12.cpp" />
+    <ClCompile Include="SR_DescriptorRing_DX12.cpp" />
+    <ClCompile Include="SR_FenceManager_DX12.cpp" />
+    <ClCompile Include="SR_GBuffer.cpp" />
+    <ClCompile Include="SR_GraphicsContext_Vk.cpp" />
+    <ClCompile Include="SR_Profiler.cpp" />
+    <ClCompile Include="SR_GraphicsResource.cpp" />
+    <ClCompile Include="SR_HoldDebugCopy.cpp" />
+    <ClCompile Include="SR_QueueManager_Vk.cpp" />
+    <ClCompile Include="SR_RenderEnums_DX12.cpp" />
+    <ClCompile Include="SR_RenderEnums_Vk.cpp" />
+    <ClCompile Include="SR_RenderInterface.cpp" />
+    <ClCompile Include="SR_RenderTarget_DX12.cpp" />
+    <ClCompile Include="SR_RenderTarget_Vk.cpp" />
+    <ClCompile Include="SR_RenderThread.cpp" />
+    <ClCompile Include="SR_RenderThreadPool.cpp" />
+    <ClCompile Include="SR_ResourceTracking_DX12.cpp" />
+    <ClCompile Include="SR_ResourceTracking_Vk.cpp" />
+    <ClCompile Include="SR_RootSignature_DX12.cpp" />
+    <ClCompile Include="SR_ShaderByteCode.cpp" />
+    <ClCompile Include="SR_ShaderCompiler.cpp" />
+    <ClCompile Include="SR_ShaderCompiler_DX12.cpp" />
+    <ClCompile Include="SR_ShaderState.cpp" />
+    <ClCompile Include="SR_GraphicsContext.cpp" />
+    <ClCompile Include="SR_GraphicsContext_DX12.cpp" />
+    <ClCompile Include="SR_GraphicsDevice.cpp" />
+    <ClCompile Include="SR_GraphicsDevice_DX12.cpp" />
+    <ClCompile Include="SR_GraphicsDevice_Vk.cpp" />
+    <ClCompile Include="SR_QueueManager.cpp" />
+    <ClCompile Include="SR_QueueManager_DX12.cpp" />
+    <ClCompile Include="SR_ShaderState_DX12.cpp" />
+    <ClCompile Include="SRender_Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Final|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SR_RenderTarget.cpp" />
+    <ClCompile Include="SR_RingBuffer.cpp" />
+    <ClCompile Include="SR_RingBuffer_DX12.cpp" />
+    <ClCompile Include="SR_ImGUI.cpp" />
+    <ClCompile Include="SR_ShaderState_Vk.cpp" />
+    <ClCompile Include="SR_Strings.cpp" />
+    <ClCompile Include="SR_SwapChain.cpp" />
+    <ClCompile Include="SR_SwapChain_DX12.cpp" />
+    <ClCompile Include="SR_SwapChain_Vk.cpp" />
+    <ClCompile Include="SR_TempResourcePool.cpp" />
+    <ClCompile Include="SR_TempResourcePool_DX12.cpp" />
+    <ClCompile Include="SR_Texture.cpp" />
+    <ClCompile Include="SR_TextureBuffer.cpp" />
+    <ClCompile Include="SR_TextureBuffer_DX12.cpp" />
+    <ClCompile Include="SR_TextureBuffer_Vk.cpp" />
+    <ClCompile Include="SR_TextureCache.cpp" />
+    <ClCompile Include="SR_TextureResource.cpp" />
+    <ClCompile Include="SR_Texture_DX12.cpp" />
+    <ClCompile Include="SR_Texture_Vk.cpp" />
+    <ClCompile Include="SR_TrackedResource.cpp" />
+    <ClCompile Include="SR_ViewConstants.cpp" />
+    <ClCompile Include="SR_VertexLayout.cpp" />
+    <ClCompile Include="SR_WICTextureLoader_DX12.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

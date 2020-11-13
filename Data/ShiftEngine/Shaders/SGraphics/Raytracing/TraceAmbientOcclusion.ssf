@@ -1,0 +1,65 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_Depth.sshf"
+import "SGraphics/Raytracing/Raytracing.sshf"
+import "SGraphics/Raytracing/RTAO.sshf"
+
+SR_Texture2D normalTexture : SR_TextureRef_GBuffer_Normal;
+SR_AccelerationStructure SceneBVH : SR_BufferRef_RaytracingScene;
+
+SR_Texture2DRW<float> RTOutput : SR_TextureRW0;
+
+SR_ConstantBuffer Settings : SR_ConstantBuffer0
+{
+	float Radius;
+	uint NumRaysPerPixel;
+}
+
+float TraceAmbientOcclusion(float3 aOrigin, float3 aDirection, float minT, float maxT)
+{
+    RayDesc ray;
+	ray.Origin = aOrigin;
+	ray.Direction = aDirection;
+	ray.TMin = minT;
+	ray.TMax = maxT;
+
+    HitInfo payload;
+	payload.myAO = 0.0;
+
+  	uint rayFlags = RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH;
+    TraceRay(SceneBVH, rayFlags, ~0, 0, 0, 0, ray, payload);
+
+	return payload.myAO;
+}
+
+[shader("raygeneration")]
+void main()
+{
+	uint2 launchIndex = DispatchRaysIndex().xy;
+	uint2 launchDimensions = DispatchRaysDimensions().xy;
+	uint randSeed = InitRand(launchIndex.x + launchIndex.y * launchDimensions.x, SR_ViewConstants.myFrameIndex, 16);
+
+	float2 fc = float2(launchIndex.x, launchIndex.y) + 0.5;
+	float2 uv = SR_PixelToUV(fc, SR_ViewConstants.myResolution);
+	float depthSample = SR_LoadDepthAtPixel(fc);
+	
+	float ao = 1.0;
+	if (depthSample > 0)
+	{
+		float3 worldPosition = SR_ClipToWorld(uv, depthSample);
+
+		float3 normalSample = normalize(SR_Load(normalTexture, int3(fc, 0)).xyz * 2.0 - 1.0);
+
+		const uint numRays = NumRaysPerPixel;
+		float ambientOcclusion = 0.0;
+		for (int i = 0; i < numRays; ++i)
+		{
+			float3 worldDir = GetHemisphereRay(randSeed, normalSample.xyz);
+			ambientOcclusion += TraceAmbientOcclusion(worldPosition.xyz, worldDir, 0.01, Radius);
+		}
+
+		ao = ambientOcclusion / (float)max(numRays, 1);
+	}
+	
+
+	RTOutput[launchIndex.xy] = saturate(ao);
+}

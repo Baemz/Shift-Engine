@@ -1,0 +1,28 @@
+// The two functions below were based on code and explanations provided by Padraic Hennessy (@PadraicHennessy).
+// See this for more info: https://placeholderart.wordpress.com/2014/11/21/implementing-a-physically-based-camera-manual-exposure/
+
+static const float KeyValue = 0.1150f;
+
+float Log2Exposure(in float avgLuminance)
+{
+    float exposure = 0.0f;
+
+    avgLuminance = max(avgLuminance, 0.00001f);
+    float linearExposure = (KeyValue / avgLuminance);
+    exposure = log2(max(linearExposure, 0.00001f));
+	
+    return exposure;
+}
+
+float LinearExposure(in float avgLuminance)
+{
+    return exp2(Log2Exposure(avgLuminance));
+}
+
+// Determines the color based on exposure settings
+float CalculateExposure(in float avgLuminance, in float offset)
+{
+    float exposure = Log2Exposure(avgLuminance);
+    exposure += offset;
+    return exp2(exposure);
+}

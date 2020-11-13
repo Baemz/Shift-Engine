@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010"> 
+  
+  <Type Name="Shift::SC_GrowingArray&lt;*&gt;">
+    <DisplayString>count={myCount} max={myAllocatedCount}</DisplayString>
+    <Expand>
+      <Item Name="count">myCount</Item>
+      <Item Name="max">myAllocatedCount</Item>
+      <ArrayItems>
+        <Size>myCount</Size>
+        <ValuePointer>myData</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  
+  <Type Name="Shift::SC_HybridArray&lt;*,*&gt;">
+    <DisplayString>count={myCount} max={myAllocatedCount}</DisplayString>
+    <Expand>
+      <Item Name="count">myCount</Item>
+      <Item Name="max">myAllocatedCount</Item>
+      <ArrayItems>
+        <Size>myCount</Size>
+        <ValuePointer>myData</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+
+  <Type Name="Shift::SC_AlignedData&lt;*&gt;">
+    <DisplayString>{*($T1 *)myBuffer}</DisplayString>
+    <Expand>
+      <ExpandedItem>*($T1 *)myBuffer</ExpandedItem>
+    </Expand>
+  </Type >
+
+  <Type Name="Shift::SC_HashMap&lt;*,*&gt;">
+    <DisplayString Condition="myNumNodes == 0">empty</DisplayString>
+    <DisplayString Condition="myNumNodes != 0">count={myNumNodes} max={myMaxNodes}</DisplayString>
+    <Expand>
+      <Item Name="count">myNumNodes</Item>
+      <Item Name="max">myMaxNodes</Item>
+      <ArrayItems>
+        <Size>myNumNodes</Size>
+        <ValuePointer>myNodes</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="SC_HashMap&lt;*,*&gt;::Node">
+    <DisplayString>[{myKey}] = {myItem}</DisplayString>
+  </Type>
+  
+</AutoVisualizer>

@@ -1,0 +1,22 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+Texture3D<float4> SourceMip : register(t0);
+RWTexture3D<float4> DownsampledMipOut : register(u0);
+
+groupshared float3 ldsTexelSize;
+
+[numthreads(4,4,4)]
+void main(uint3 aThreadId : SV_DispatchThreadId, uint aGroupIdx : SV_GroupIndex)
+{
+    if (aGroupIdx == 0)
+    {
+        float3 res;
+        DownsampledMipOut.GetDimensions(res.x, res.y, res.z);
+        ldsTexelSize = 1.0 / res;
+    }
+    SR_GroupMemoryBarrierSync();
+
+    float3 uvw = ldsTexelSize * (aThreadId.xyz + 0.5);
+	float4 color = SourceMip.SampleLevel(SamplerLinearClamp, uvw, 0);
+	DownsampledMipOut[aThreadId.xyz] = color;
+}

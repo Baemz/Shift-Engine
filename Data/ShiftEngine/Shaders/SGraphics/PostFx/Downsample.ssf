@@ -1,0 +1,43 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_ConstantBuffer constants : SR_ConstantBuffer0
+{
+    float2 myMinUV;
+    float2 myMaxUV;
+    float2 myTexelSizeAndUVScale;
+    float2 myUVOffset;
+    float2 myDiv2TexelSizeAndUVScale;
+}
+
+SR_Texture2D Source : SR_Texture0;
+SR_Texture2DRW<float4> Output : SR_TextureRW0;
+
+float4 SampleSource(float2 aUV)
+{
+    float2 uv = (aUV * myTexelSizeAndUVScale) + myUVOffset;
+    float2 clampedUV = clamp(uv, myMinUV, myMaxUV);
+    float t = saturate(1 - dot((float2)1, abs(uv - clampedUV) * myDiv2TexelSizeAndUVScale));
+    return float4(SR_SampleLod0(SamplerLinearClamp, Source, clampedUV).xyz, 1.0) * t;
+}
+
+[numthreads(8,8,1)]
+void main(uint3 threadIndex : SV_DispatchThreadId)
+{
+    float2 uv = float2(threadIndex.xy << 1);
+
+    float4 sample00 = SampleSource(uv + float2(-1.0, -1.0));
+    float4 sample01 = SampleSource(uv + float2(-1.0, 1.0));
+    float4 sample02 = SampleSource(uv + float2(-1.0, 3.0));
+    float4 sample10 = SampleSource(uv + float2(1.0, -1.0));
+    float4 sample11 = SampleSource(uv + float2(1.0, 1.0));
+    float4 sample12 = SampleSource(uv + float2(1.0, 3.0));
+    float4 sample20 = SampleSource(uv + float2(3.0, -1.0));
+    float4 sample21 = SampleSource(uv + float2(3.0, 1.0));
+    float4 sample22 = SampleSource(uv + float2(3.0, 3.0));
+
+    float4 result = ((sample00 + sample20 + sample02 + sample22) + ((sample10 + sample01 + sample21 + sample12) * 4.0) + (sample11 * 16.0)) / 36.0;
+    result.xyz = result.xyz >= 0 && result.xyz < 100000.0 ? result.xyz : (float3)0;
+    result.w = max(result.w, 0.0000001);
+
+    Output[threadIndex.xy] = float4(result.xyz / result.w, 1.0);
+}

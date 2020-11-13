@@ -1,0 +1,26 @@
+
+struct HitInfo
+{
+	float myAO;
+};
+
+struct Attributes 
+{
+	float2 uv;
+};
+
+//[shader("anyhit")]
+//void HitGroup0_AnyHit(inout HitInfo payload, Attributes attributes)
+//{
+//}
+
+[shader("closesthit")]
+void HitGroup0_ClosestHit(inout HitInfo payload, Attributes attributes)
+{
+}
+
+[shader("miss")]
+void miss(inout HitInfo payload)
+{
+    payload.myAO = 1.f;
+}

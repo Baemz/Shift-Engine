@@ -1,0 +1,54 @@
+-------------------------
+-- Variables --
+ALL variables uses camel case and first letter is always lower case
+
+-- File local variables --
+	File local variables always start with "locXXX"
+
+-- Member variables --
+	Member Variables always starts with "myXXX"
+
+-- Static Member variables --
+	Static Member Variables always starts with "ourXXX"
+
+
+-------------------------
+-- Functions --
+	
+All Function names uses camel case and first letter is always upper case.
+Use a function name that describes the functionality.
+
+-- File local Functions --
+	File local functions always start with "locXXX", first letter is always lower case
+
+-- Arguments --
+	ALL function arguments should start with a lowercase 'a' followed by the argument name, make sure to use camel case.
+	Example: 
+		void TestFunction(int aInteger, float aFloat, void* aVoidPointer);
+
+
+-------------------------
+-- Scopes --
+Scope brackets are ALWAYS on a new line, except if code fits on one line, then both brackets 
+surround the code on the same line.
+
+if (true) {
+ // code	--THIS IS NOT ALLOWED!
+}
+
+if (true) 
+{
+ // code	--THIS IS ALLOWED!
+}
+
+if (true) { //code } -- THIS IS ALLOWED!
+
+
+-------------------------
+-- Classes and Structs --
+
+All classes are prefixed with a specific prefix depending on which project they are located in.
+
+For example:
+Files in the SRender project is prefixed with "SR_xxx"
+Files in the SCore project is prefixed with "SC_xxx"

@@ -1,0 +1,80 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SGraphics/GeometryProcessing/Tessellation.sshf"
+
+SR_ConstantBuffer TessellationConstants : SR_ConstantBuffer0
+{
+    float TessellationAmount;
+    float DisplacementAmount;
+}
+
+struct InputStruct
+{
+    float4x4 myInstanceTransform : INSTANCE_TRANSFORM;
+    precise float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+
+struct OutputStruct
+{
+    float4x4 myInstanceTransform : INSTANCE_TRANSFORM;
+    precise float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+
+struct PatchConstantOutput
+{
+    float myEdges[3] : SV_TessFactor;
+    float myInside : SV_InsideTessFactor;
+};
+
+PatchConstantOutput GetPatchConstant(InputPatch<InputStruct, 3> inputPatch, uint patchId : SV_PrimitiveID)
+{    
+    PatchConstantOutput output = (PatchConstantOutput)0;
+
+    float4 planes[4];
+    float3 vPosWS0 = inputPatch[0].myWorldPos;
+    float3 vPosWS1 = inputPatch[1].myWorldPos;
+    float3 vPosWS2 = inputPatch[2].myWorldPos;
+
+    bool frustumCullResult = Tessellation_ViewFrustumCull(vPosWS0, vPosWS1, vPosWS2, planes, 0.0);
+
+    float adaptiveScaleFactor0 = Tessellation_GetDistanceAdaptiveScaleFactor(SR_ViewConstants.myCameraPosition, vPosWS2, vPosWS0, 0.5, 50.f);
+    output.myEdges[0] = lerp(1.0, TessellationAmount, adaptiveScaleFactor0);
+    float adaptiveScaleFactor1 = Tessellation_GetDistanceAdaptiveScaleFactor(SR_ViewConstants.myCameraPosition, vPosWS0, vPosWS1, 0.5, 50.f);
+    output.myEdges[1] = lerp(1.0, TessellationAmount, adaptiveScaleFactor1);
+    float adaptiveScaleFactor2 = Tessellation_GetDistanceAdaptiveScaleFactor(SR_ViewConstants.myCameraPosition, vPosWS1, vPosWS2, 0.5, 50.f);
+    output.myEdges[2] = lerp(1.0, TessellationAmount, adaptiveScaleFactor2);
+
+    output.myInside = (output.myEdges[0] + output.myEdges[1] + output.myEdges[2]) / 3.0f;
+
+    return output;
+}
+
+[domain("tri")]
+[partitioning("integer")]
+[outputtopology("triangle_cw")]
+[outputcontrolpoints(3)]
+[patchconstantfunc("GetPatchConstant")]
+OutputStruct main(InputPatch<InputStruct, 3> patch, uint pointId : SV_OutputControlPointID, uint patchId : SV_PrimitiveID)
+{
+    OutputStruct output;
+
+    output.myInstanceTransform = patch[pointId].myInstanceTransform;
+    output.myPosition = patch[pointId].myPosition;
+    output.myColor = patch[pointId].myColor;
+    output.myNormal = patch[pointId].myNormal;
+    output.myTangent = patch[pointId].myTangent;
+    output.myBinormal = patch[pointId].myBinormal;
+    output.myUV = patch[pointId].myUV;
+
+    return output;
+}

@@ -1,0 +1,11 @@
+
+struct PixelIn
+{
+	float4 myPosition : SV_Position;
+	float4 myColor : COLOR;
+};
+
+float4 main(PixelIn input) : SV_Target
+{
+    return input.myColor;
+}

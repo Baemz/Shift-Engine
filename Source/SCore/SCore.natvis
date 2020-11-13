@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+  <Type Name="Shift::SC_Ref&lt;*&gt;">
+    <DisplayString Condition="myTargetAddress == 0">Null</DisplayString>
+    <DisplayString Condition="myTargetAddress != 0">{($T1*)myTargetAddress}</DisplayString>
+    <Expand>
+      <ExpandedItem Condition="myTargetAddress != 0">($T1*)myTargetAddress</ExpandedItem>
+    </Expand>
+  </Type>
+  
+</AutoVisualizer>

@@ -1,0 +1,6 @@
+
+[numthreads(4,4,4)]
+void main(uint3 aThreadId : SV_DispatchThreadId)
+{
+
+}

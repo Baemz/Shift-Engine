@@ -1,0 +1,100 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+import "SRender/ColorSpace/SR_ColorSpace.sshf"
+import "SGraphics/PostFX/Exposure/Exposure.sshf"
+import "SGraphics/PostFX/Tonemap/ACES.sshf"
+
+
+#define ACES_FILMIC_TONEMAP
+
+Texture2D frameTexture : register(t0);
+Texture2D bloomTexture : register(t1);
+Texture2D avgLuminanceTexture : register(t2);
+RWTexture2D<float4> outTexture : register(u0);
+
+cbuffer Settings : register(b0)
+{
+	float ExposureBias;
+	float BloomIntensity;
+}
+
+#ifdef UNCHARTED_TONEMAP
+float3 Uncharted2TonemapFunc(float3 x)
+{
+	float A = 0.15f;
+	float B = 0.50f;
+	float C = 0.10f;
+	float D = 0.20f;
+	float E = 0.02f;
+	float F = 0.30f;
+	return ((x * (A * x + C * B) + D * E) / (x * (A * x + B) + D * F)) - E / F;
+}
+
+float3 UnchartedTonemap(float3 aColor)
+{
+	float3 curr = Uncharted2TonemapFunc(aColor);
+
+	float W = 11.2f;
+	float3 whiteScale = 1.0f / Uncharted2TonemapFunc(W);
+	float3 color = curr * whiteScale;
+
+	float3 retColor = pow(color, 1 / 2.2f);
+	return retColor;
+}
+#endif
+
+#ifdef BURGESSDAWSON_TONEMAP
+float3 BurgessDawsonTonemap(float3 aColor)
+{
+	float3 x = max(0, aColor - 0.004f);
+	float3 retColor = (x * (6.2f * x + 0.5f)) / (x * (6.2f * x + 1.7f) + 0.06f);
+	return retColor;
+}
+#endif
+
+#ifdef REINHARD_TONEMAP
+float3 ReinhardTonemap(float3 aColor)
+{
+	float3 color = aColor / (1 + aColor);
+	float3 retColor = pow(color, 1 / 2.2f);
+	return retColor;
+}
+#endif
+
+float GetAvgLuminance(Texture2D aLumTex)
+{
+    return aLumTex.Load(uint3(0, 0, 0)).x;
+}
+
+[numthreads(8, 8, 1)]
+void main(uint3 threadID : SV_DispatchThreadID)
+{
+	float2 ScreenResolution = SR_ViewConstants.myResolution;
+	if (threadID.x < ScreenResolution.x && threadID.y < ScreenResolution.y)
+	{
+		int3 sampleLocation = int3(threadID.xy, 0);
+		float2 uv = SR_PixelToUV(sampleLocation.xy, ScreenResolution);
+		float3 frameColor = frameTexture.Load(sampleLocation).xyz;
+		float3 bloomColor = bloomTexture.SampleLevel(SamplerLinearClamp, uv, 0).xyz;
+		float3 screenColor = frameColor;
+		
+		float exposure = 0;
+		exposure = CalculateExposure(GetAvgLuminance(avgLuminanceTexture), 0);
+		screenColor = lerp(screenColor, bloomColor, 0.0075);
+		screenColor *= exposure;
+
+#ifdef ACES_FILMIC_TONEMAP
+		outTexture[sampleLocation.xy] = float4(SR_LinearTosRGB(ACESFitted(screenColor) * 1.8), 1.0);
+#endif
+
+#ifdef UNCHARTED_TONEMAP
+		outTexture[sampleLocation.xy] = float4(UnchartedTonemap(screenColor), 1.0f);
+#endif
+#ifdef BURGESSDAWSON_TONEMAP
+		outTexture[sampleLocation.xy] = float4(BurgessDawsonTonemap(screenColor), 1.0f);
+#endif
+#ifdef REINHARD_TONEMAP
+		outTexture[sampleLocation.xy] = float4(ReinhardTonemap(screenColor), 1.0f);
+#endif
+	}
+};

@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>{1a44c19b-4f90-4dd8-9ed4-fe687a8b024c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan">
+      <UniqueIdentifier>{fbadb883-cbc0-40c5-a2e5-f37f246e7fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{bafcc6de-64f4-4aaf-8f17-2385e5864b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources">
+      <UniqueIdentifier>{4dea30ac-8137-4090-9d89-24776a7b7e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Buffers">
+      <UniqueIdentifier>{e5503b05-6acf-40a0-bdbd-b28edb2f5c44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Other">
+      <UniqueIdentifier>{ed85ae13-eafd-45c1-9a25-7ac3e82bef57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Textures">
+      <UniqueIdentifier>{76aef7cb-22f3-4b55-82bb-38f3e4cf9864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Shaders">
+      <UniqueIdentifier>{7d458722-4e46-4964-90fa-f83bf0cea7ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Resources">
+      <UniqueIdentifier>{d6d5dd9b-6ce7-40d5-896b-809212c75832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Profiler">
+      <UniqueIdentifier>{ac817034-5a25-44b3-bfe8-3a489246873c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\ResourceManagement">
+      <UniqueIdentifier>{4481f0cb-d08a-453c-babd-e2651625f9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Context">
+      <UniqueIdentifier>{1e36912b-5fc4-410a-87b9-804af2d0e08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Device">
+      <UniqueIdentifier>{37a7442f-ffc1-4b2f-bcd2-91558a9f7f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Swapchain">
+      <UniqueIdentifier>{53f1c2a8-fc5d-4776-989f-e9b8fb5b607d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\QueueManager">
+      <UniqueIdentifier>{2e42c54c-1642-47cc-884c-eaefaa8f6502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Misc">
+      <UniqueIdentifier>{8a1c913f-ca7f-424c-878d-247a9eff11d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Resources\Buffer">
+      <UniqueIdentifier>{cc93fa03-2390-46f6-afb4-040c869f2857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\ResourceManagement">
+      <UniqueIdentifier>{24629a6a-6b3f-4885-ac23-d65bc936e993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\MemoryManagement">
+      <UniqueIdentifier>{5bb2b558-7740-43d7-9a7b-c083d37a97e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Context">
+      <UniqueIdentifier>{1dac1706-22bb-4065-b99d-ee769f881fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Device">
+      <UniqueIdentifier>{f282ad8f-e143-456b-add8-2c6c4f06b3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\QueueManager">
+      <UniqueIdentifier>{5ee3e65d-a60f-43c1-b3a0-ac6f9a965570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Swapchain">
+      <UniqueIdentifier>{411a37bc-7167-4739-9488-6c0e20e805a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Misc">
+      <UniqueIdentifier>{6dbda4fb-5a5d-468c-9a2e-2e063e28e2fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\ResourceCache">
+      <UniqueIdentifier>{ddaa4b4d-b9cd-445d-a4dc-652bf20d46fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Resources\Texture">
+      <UniqueIdentifier>{1928bd2b-0161-420c-89d7-880001909a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Gbuffer">
+      <UniqueIdentifier>{7728619d-230f-4aff-a124-1d0adbd1c9f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Debug">
+      <UniqueIdentifier>{26689515-7234-4ad7-8b26-b8b8375987d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\RenderThread">
+      <UniqueIdentifier>{7ddb94be-7c08-4778-a30a-61938bc85bc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\CommandLists">
+      <UniqueIdentifier>{9354084d-291a-459e-8b0c-f49c3ac2bc09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\CommandLists">
+      <UniqueIdentifier>{1a1356b6-cdc1-4888-bf09-078619ccd2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Resources\Shaders">
+      <UniqueIdentifier>{e49512a2-8cca-48d1-869d-d4a3f21c837d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\Resources\Constants">
+      <UniqueIdentifier>{0e34c16f-ea6d-4e46-bd06-d42760b16fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUI">
+      <UniqueIdentifier>{9e36859f-6e5e-45cc-9a79-899098eecf37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Device">
+      <UniqueIdentifier>{2efe1475-6f6a-4a56-9474-e2cae684a369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Context">
+      <UniqueIdentifier>{828bcb99-4a5e-401f-ad60-64138d9d2645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Misc">
+      <UniqueIdentifier>{f290f475-b21d-4268-b696-fa70a8020db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Swapchain">
+      <UniqueIdentifier>{87dc680c-e832-4842-b0f3-1dcc479ae4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Resources">
+      <UniqueIdentifier>{e88f1316-aee8-4506-9035-304b0b0b8080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Resources\Buffer">
+      <UniqueIdentifier>{65462a1f-970c-48ed-91e2-89f2060ec9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Resources\Texture">
+      <UniqueIdentifier>{0c66c9c6-1010-4397-9247-86661086fe96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\Resources\Shaders">
+      <UniqueIdentifier>{92772c86-1469-49f0-89f6-d66ba02497ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vulkan\QueueManager">
+      <UniqueIdentifier>{09bb4a3d-3c79-4ee3-b49c-9861ff48f55f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="d3dx12.h">
+      <Filter>DirectX\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SRender_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ImGUI.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_CommandAllocator_DX12.h">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_CommandList_DX12.h">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_CommandListPool_DX12.h">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsContext_DX12.h">
+      <Filter>DirectX\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsDevice_DX12.h">
+      <Filter>DirectX\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Header_DX12.h">
+      <Filter>DirectX\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Converters_DX12.h">
+      <Filter>DirectX\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderDefines.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_DescriptorHeap_DX12.h">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RingBuffer_DX12.h">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TempResourcePool_DX12.h">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Buffer_DX12.h">
+      <Filter>DirectX\Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_BufferView_DX12.h">
+      <Filter>DirectX\Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderState_DX12.h">
+      <Filter>DirectX\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderTarget_DX12.h">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Texture_DX12.h">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TextureBuffer_DX12.h">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Descriptor_DX12.h">
+      <Filter>DirectX\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ResourceTracking_DX12.h">
+      <Filter>DirectX\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_SwapChain_DX12.h">
+      <Filter>DirectX\Swapchain</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderInclude.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Profiler.h">
+      <Filter>Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_CommandList.h">
+      <Filter>Shared\CommandLists</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsContext.h">
+      <Filter>Shared\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_HoldDebugCopy.h">
+      <Filter>Shared\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsDevice.h">
+      <Filter>Shared\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Format.h">
+      <Filter>Shared\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsDefinitions.h">
+      <Filter>Shared\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GeneralShaderInterop.h">
+      <Filter>Shared\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsEngineEnums.h">
+      <Filter>Shared\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderThread.h">
+      <Filter>Shared\RenderThread</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderThreadPool.h">
+      <Filter>Shared\RenderThread</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TextureCache.h">
+      <Filter>Shared\ResourceCache</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TempResourcePool.h">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Buffer.h">
+      <Filter>Shared\Resources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_BufferView.h">
+      <Filter>Shared\Resources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GBuffer.h">
+      <Filter>Shared\Resources\Gbuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GBufferDefines.h">
+      <Filter>Shared\Resources\Gbuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_VertexLayout.h">
+      <Filter>Shared\Resources\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_WaitEvent.h">
+      <Filter>Shared\Resources\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderByteCode.h">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderState.h">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderTarget.h">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Texture.h">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TextureBuffer.h">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TextureResource.h">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsResource.h">
+      <Filter>Shared\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsResources.h">
+      <Filter>Shared\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TrackedResource.h">
+      <Filter>Shared\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_SwapChain.h">
+      <Filter>Shared\Swapchain</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderEnums.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderInterface.h" />
+    <ClInclude Include="SR_RenderStateDescs.h">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ViewConstants.h">
+      <Filter>Shared\Resources\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderCompiler.h">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderCompiler_DX12.h">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx12.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_vulkan.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_DDSTextureLoader_DX12.h">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_WICTextureLoader_DX12.h">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ResourceRefs.h">
+      <Filter>Shared\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RootSignature_DX12.h">
+      <Filter>DirectX\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderStates.h">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_PSOKey.h">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Fence.h">
+      <Filter>Shared\Resources\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_FenceManager_DX12.h">
+      <Filter>DirectX\QueueManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Strings.h">
+      <Filter>Shared\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RingBuffer.h">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_DescriptorRing_DX12.h">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ResourceBindings.h">
+      <Filter>Shared\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ResourceBindings_DX12.h">
+      <Filter>DirectX\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_StateCache_DX12.h">
+      <Filter>DirectX\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_SwapChain_Vk.h">
+      <Filter>Vulkan\Swapchain</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderTarget_Vk.h">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Converters_Vk.h">
+      <Filter>Vulkan\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ForwardDeclarations_Vk.h">
+      <Filter>Vulkan\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Header_Vk.h">
+      <Filter>Vulkan\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsDevice_Vk.h">
+      <Filter>Vulkan\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_GraphicsContext_Vk.h">
+      <Filter>Vulkan\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_TextureBuffer_Vk.h">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Texture_Vk.h">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_Buffer_Vk.h">
+      <Filter>Vulkan\Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ShaderState_Vk.h">
+      <Filter>Vulkan\Resources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_BufferView_Vk.h">
+      <Filter>Vulkan\Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderEnums_DX12.h">
+      <Filter>DirectX\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_RenderEnums_Vk.h">
+      <Filter>Vulkan\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_QueueManager_Vk.h">
+      <Filter>Vulkan\QueueManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_QueueManager.h">
+      <Filter>Shared\QueueManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_QueueManager_DX12.h">
+      <Filter>DirectX\QueueManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SR_ResourceTracking_Vk.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SRender_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ImGUI.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_CommandAllocator_DX12.cpp">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_CommandList_DX12.cpp">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_CommandListPool_DX12.cpp">
+      <Filter>DirectX\CommandLists</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsContext_DX12.cpp">
+      <Filter>DirectX\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsDevice_DX12.cpp">
+      <Filter>DirectX\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_DescriptorHeap_DX12.cpp">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RingBuffer_DX12.cpp">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TempResourcePool_DX12.cpp">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Buffer_DX12.cpp">
+      <Filter>DirectX\Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_BufferView_DX12.cpp">
+      <Filter>DirectX\Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderState_DX12.cpp">
+      <Filter>DirectX\Resources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderTarget_DX12.cpp">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Texture_DX12.cpp">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TextureBuffer_DX12.cpp">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_SwapChain_DX12.cpp">
+      <Filter>DirectX\Swapchain</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Profiler.cpp">
+      <Filter>Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_CommandList.cpp">
+      <Filter>Shared\CommandLists</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsContext.cpp">
+      <Filter>Shared\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_HoldDebugCopy.cpp">
+      <Filter>Shared\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsDevice.cpp">
+      <Filter>Shared\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderThread.cpp">
+      <Filter>Shared\RenderThread</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderThreadPool.cpp">
+      <Filter>Shared\RenderThread</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TextureCache.cpp">
+      <Filter>Shared\ResourceCache</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TempResourcePool.cpp">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Buffer.cpp">
+      <Filter>Shared\Resources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_BufferView.cpp">
+      <Filter>Shared\Resources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GBuffer.cpp">
+      <Filter>Shared\Resources\Gbuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_VertexLayout.cpp">
+      <Filter>Shared\Resources\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderByteCode.cpp">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderState.cpp">
+      <Filter>Shared\Resources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderTarget.cpp">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Texture.cpp">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TextureBuffer.cpp">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TextureResource.cpp">
+      <Filter>Shared\Resources\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsResource.cpp">
+      <Filter>Shared\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TrackedResource.cpp">
+      <Filter>Shared\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_SwapChain.cpp">
+      <Filter>Shared\Swapchain</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderInterface.cpp" />
+    <ClCompile Include="SR_ViewConstants.cpp">
+      <Filter>Shared\Resources\Constants</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderCompiler.cpp">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderCompiler_DX12.cpp">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx12.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_vulkan.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_DDSTextureLoader_DX12.cpp">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_WICTextureLoader_DX12.cpp">
+      <Filter>DirectX\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RootSignature_DX12.cpp">
+      <Filter>DirectX\Resources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_FenceManager_DX12.cpp">
+      <Filter>DirectX\QueueManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Strings.cpp">
+      <Filter>Shared\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ResourceTracking_DX12.cpp">
+      <Filter>DirectX\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RingBuffer.cpp">
+      <Filter>Shared\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_DescriptorRing_DX12.cpp">
+      <Filter>DirectX\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_SwapChain_Vk.cpp">
+      <Filter>Vulkan\Swapchain</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderTarget_Vk.cpp">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsDevice_Vk.cpp">
+      <Filter>Vulkan\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_GraphicsContext_Vk.cpp">
+      <Filter>Vulkan\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_TextureBuffer_Vk.cpp">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Texture_Vk.cpp">
+      <Filter>Vulkan\Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_Buffer_Vk.cpp">
+      <Filter>Vulkan\Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ShaderState_Vk.cpp">
+      <Filter>Vulkan\Resources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_BufferView_Vk.cpp">
+      <Filter>Vulkan\Resources\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderEnums_DX12.cpp">
+      <Filter>DirectX\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_RenderEnums_Vk.cpp">
+      <Filter>Vulkan\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_QueueManager_Vk.cpp">
+      <Filter>Vulkan\QueueManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_QueueManager.cpp">
+      <Filter>Shared\QueueManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_QueueManager_DX12.cpp">
+      <Filter>DirectX\QueueManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SR_ResourceTracking_Vk.cpp" />
+  </ItemGroup>
+</Project>

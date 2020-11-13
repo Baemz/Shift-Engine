@@ -1,0 +1,27 @@
+
+struct SG_VoxelFaceData
+{
+    uint myEncodedColor;
+    uint myEncodedNormal;
+    uint myEncodedEmission;
+};
+struct SG_VoxelData
+{
+    SG_VoxelFaceData myFaces[6];
+};
+
+float4 ConvertRGBA8ToFloat4(uint aVal)
+{
+    return float4(float((aVal & 0x000000FF)), 
+    float((aVal & 0x0000FF00) >> 8U), 
+    float((aVal & 0x00FF0000) >> 16U), 
+    float((aVal & 0xFF000000) >> 24U));
+}
+
+uint ConvertFloat4ToRGBA8(float4 aVal)
+{
+    return (uint(aVal.w) & 0x000000FF) << 24U | 
+    (uint(aVal.z) & 0x000000FF) << 16U | 
+    (uint(aVal.y) & 0x000000FF) << 8U | 
+    (uint(aVal.x) & 0x000000FF);
+}

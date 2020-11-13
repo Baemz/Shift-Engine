@@ -1,0 +1,61 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+import "SRender/SR_Depth.sshf"
+
+SR_Texture2D randTexture : SR_Texture0;
+SR_Texture2D normalTexture : SR_TextureRef_GBuffer_Normal;
+SR_Texture2DRW<float> outTexture : SR_TextureRW0;
+
+SR_ConstantBuffer Settings : SR_ConstantBuffer0
+{
+	float SamplingRadius;
+	float Scale;
+	float Bias;
+	float Intensity;
+}
+
+float OcclusionSample(in float2 aCoord, in float2 aUV, in float3 aPos, in float3 aNormal)
+{
+	float depth = SR_SampleDepth(aCoord + aUV);
+	float3 diff = (SR_ClipToCamera(aCoord + aUV , depth).xyz) - aPos;
+	const float3 v = normalize(diff);
+	const float d = length(diff) * Scale;
+	return max(0.0, dot(aNormal, v) - Bias) * (1.0 / (1.0 + d)) * Intensity;
+}
+
+[numthreads(8, 8, 1)]
+void main(uint3 threadID : SV_DispatchThreadID)
+{
+	float2 Resolution = SR_ViewConstants.myResolution;
+	if (threadID.x > Resolution.x || threadID.y > Resolution.y)
+        return;
+
+	int3 sampleLocation = int3(threadID.xy, 0);
+	outTexture[sampleLocation.xy] = (float4)1.f;
+	float2 uv = SR_PixelToUV(sampleLocation.xy, Resolution);
+	float3 normalSample = normalize(SR_Load(normalTexture, sampleLocation) * 2.0 - 1.0);
+	normalSample = normalize(mul((float3x3)SR_ViewConstants.myWorldToCamera, normalSample));
+		
+	float depthSample = SR_LoadDepthAtPixel(sampleLocation.xy);
+	float3 viewPosition = SR_ClipToCamera(uv, depthSample);
+	float2 rand = SR_SampleLod(SamplerLinearWrap, randTexture, Resolution * uv / float(64.f), 0) * 2.0f - 1.0f;
+
+	float accumulatedOcclusion = 0.0f;
+	float radius = SamplingRadius / viewPosition.z;
+	const float2 direction[8] = { float2(1,0), float2(-1,0), float2(0,1), float2(0,-1), float2(1, 1), float2(-1, -1), float2(1, -1), float2(-1, 1) };
+
+	int iterations = 8;
+	for (int j = 0; j < iterations; ++j)
+	{
+		float2 coord1 = reflect(direction[j], rand) * radius;
+		float2 coord2 = float2(coord1.x * 0.707 - coord1.y * 0.707, coord1.x * 0.707 + coord1.y * 0.707);
+
+	    accumulatedOcclusion += OcclusionSample(uv, coord1 * 0.25,	viewPosition, normalSample);
+		accumulatedOcclusion += OcclusionSample(uv, coord2 * 0.5,	viewPosition, normalSample);
+		accumulatedOcclusion += OcclusionSample(uv, coord1 * 0.75,	viewPosition, normalSample);
+		accumulatedOcclusion += OcclusionSample(uv, coord2,			viewPosition, normalSample);
+	}
+
+	accumulatedOcclusion /= iterations * 4.f;
+	outTexture[sampleLocation.xy] = (1 - accumulatedOcclusion);
+}

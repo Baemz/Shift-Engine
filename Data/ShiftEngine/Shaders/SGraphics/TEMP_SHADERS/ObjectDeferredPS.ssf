@@ -1,0 +1,44 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D colorTexture : SR_Texture0;
+SR_Texture2D normalTexture : SR_Texture1;
+SR_Texture2D aoTexture : SR_Texture2;
+SR_Texture2D roughnessTexture : SR_Texture3;
+SR_Texture2D metallicTexture : SR_Texture4;
+
+struct OutputStruct
+{
+    float4 myColor : SV_TARGET0;
+    float3 myNormal : SV_TARGET1;
+    float4 myMaterial : SV_TARGET2;
+    float4 myEmissive : SV_TARGET3;
+};
+
+struct InputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+OutputStruct main(InputStruct input)
+{
+    float3 normalSample = normalTexture.Sample(SamplerAnisoWrap, input.myUV).xyz * 2.0 - 1.0;
+    float3 normal = normalize(mul(input.myTangentSpaceMatrix, normalSample));
+
+    float4 color = colorTexture.Sample(SamplerAnisoWrap, input.myUV);
+    float3 material = (float3)0;
+    material.r = aoTexture.Sample(SamplerAnisoWrap, input.myUV);
+    material.g = roughnessTexture.Sample(SamplerAnisoWrap, input.myUV);
+    material.b = metallicTexture.Sample(SamplerAnisoWrap, input.myUV);
+
+    OutputStruct output;
+    output.myColor = float4(color.rgb, 1.0) * input.myColor;
+    output.myNormal = normal * 0.5 + 0.5;
+    output.myMaterial = float4(material, 1.0);
+    output.myEmissive = (float4)0;
+    return output;
+}

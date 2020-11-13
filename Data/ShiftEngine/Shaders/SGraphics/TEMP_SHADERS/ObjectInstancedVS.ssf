@@ -1,0 +1,69 @@
+import "SRender/SR_ViewConstants.sshf"
+
+struct VertexData
+{
+    float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+struct InstanceData
+{
+    float4 myMat0 : INSTANCE_MAT0;
+    float4 myMat1 : INSTANCE_MAT1;
+    float4 myMat2 : INSTANCE_MAT2;
+    float4 myMat3 : INSTANCE_MAT3;
+    float4 myInstanceColor : INSTANCE_COLOR;
+};
+
+struct InputStruct
+{
+    VertexData myVertexData;
+    InstanceData myInstanceData;
+};
+
+struct OutputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    precise float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+OutputStruct main (InputStruct input)
+{
+    VertexData vertexData = input.myVertexData;
+    InstanceData instanceData = input.myInstanceData;
+
+    float4x4 modelTransform = float4x4(
+        instanceData.myMat0,
+        instanceData.myMat1,
+        instanceData.myMat2,
+        instanceData.myMat3
+    );
+
+    float3x3 modelTransform33 = (float3x3)modelTransform;
+    float3 normal = normalize(SR_Transform(modelTransform33, vertexData.myNormal));
+    float3 binormal = normalize(SR_Transform(modelTransform33, vertexData.myBinormal));
+    float3 tangent = normalize(SR_Transform(modelTransform33, vertexData.myTangent));
+
+    float3x3 tangentSpaceMatrix = float3x3(
+        tangent.x, binormal.x, normal.x,
+        tangent.y, binormal.y, normal.y,
+        tangent.z, binormal.z, normal.z
+    );
+
+    OutputStruct output;
+    output.myTangentSpaceMatrix = tangentSpaceMatrix;
+    output.myWorldPos = SR_Transform(modelTransform, vertexData.myPosition.xyz).xyz;
+    output.myPosition = SR_Transform(SR_ViewConstants.myWorldToClip, output.myWorldPos);
+    output.myColor = vertexData.myColor * instanceData.myInstanceColor;
+    output.myWorldNormal = normal;
+    output.myUV = vertexData.myUV;
+
+    return output;
+}

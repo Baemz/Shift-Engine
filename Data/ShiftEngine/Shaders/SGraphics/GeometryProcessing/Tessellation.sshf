@@ -1,0 +1,64 @@
+
+float Tessellation_GetDistanceAdaptiveScaleFactor(float3 f3Eye,           // Position of the camera/eye
+                                                  float3 f3EdgePosition0, // Position of the first control point of the given patch edge
+                                                  float3 f3EdgePosition1, // Position of the second control point of the given patch edge
+                                                  float fMinDistance,     // Minimum distance that maximum tessellation factors should be applied at
+                                                  float fRange)           // Range beyond the minimum distance where tessellation will scale down to the minimum scaling factor 
+{
+    float3 f3MidPoint = (f3EdgePosition0 + f3EdgePosition1) * 0.5f;
+    float fDistance = distance(f3MidPoint, f3Eye) - fMinDistance;
+    float fScale = 1.0f - saturate(fDistance / fRange);
+    return fScale;
+}
+
+bool Tessellation_BackFaceCull(float fEdgeDotProduct0, // Dot product of edge 0 normal with view vector
+                               float fEdgeDotProduct1, // Dot product of edge 1 normal with view vector
+                               float fEdgeDotProduct2, // Dot product of edge 2 normal with view vector
+                               float fBackFaceEpsilon) // Epsilon to determine cut off value for what is considered back facing
+                    
+{
+    float3 f3BackFaceCull;
+    
+    f3BackFaceCull.x = (fEdgeDotProduct0 > -fBackFaceEpsilon) ? (0.0f) : (1.0f);
+    f3BackFaceCull.y = (fEdgeDotProduct1 > -fBackFaceEpsilon) ? (0.0f) : (1.0f);
+    f3BackFaceCull.z = (fEdgeDotProduct2 > -fBackFaceEpsilon) ? (0.0f) : (1.0f);
+    
+    return all(f3BackFaceCull);
+}
+
+
+float Tessellation_DistanceFromPlane(float3 f3Position,       // World space position of the patch control point
+                                     float4 f4PlaneEquation)  // Plane equation of a frustum plane
+{
+    return dot(float4(f3Position, 1.0f), f4PlaneEquation);
+}
+
+bool Tessellation_ViewFrustumCull(float3 f3EdgePosition0,          // World space position of patch control point 0
+                                  float3 f3EdgePosition1,          // World space position of patch control point 1
+                                  float3 f3EdgePosition2,          // World space position of patch control point 2
+                                  float4 f4ViewFrustumPlanes[4],   // 4 plane equations (left, right, top, bottom)
+                                  float fCullEpsilon)              // Epsilon to determine the distance outside the view frustum is still considered inside
+{    
+    float4 f4PlaneTest;
+    float fPlaneTest;
+    
+    // Left clip plane
+    f4PlaneTest.x = ((Tessellation_DistanceFromPlane(f3EdgePosition0, f4ViewFrustumPlanes[0]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition1, f4ViewFrustumPlanes[0]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition2, f4ViewFrustumPlanes[0]) > -fCullEpsilon) ? 1.0f : 0.0f);
+    // Right clip plane
+    f4PlaneTest.y = ((Tessellation_DistanceFromPlane(f3EdgePosition0, f4ViewFrustumPlanes[1]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition1, f4ViewFrustumPlanes[1]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition2, f4ViewFrustumPlanes[1]) > -fCullEpsilon) ? 1.0f : 0.0f);
+    // Top clip plane
+    f4PlaneTest.z = ((Tessellation_DistanceFromPlane(f3EdgePosition0, f4ViewFrustumPlanes[2]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition1, f4ViewFrustumPlanes[2]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition2, f4ViewFrustumPlanes[2]) > -fCullEpsilon) ? 1.0f : 0.0f);
+    // Bottom clip plane
+    f4PlaneTest.w = ((Tessellation_DistanceFromPlane(f3EdgePosition0, f4ViewFrustumPlanes[3]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition1, f4ViewFrustumPlanes[3]) > -fCullEpsilon) ? 1.0f : 0.0f) +
+                    ((Tessellation_DistanceFromPlane(f3EdgePosition2, f4ViewFrustumPlanes[3]) > -fCullEpsilon) ? 1.0f : 0.0f);
+        
+    // Triangle has to pass all 4 plane tests to be visible
+    return !all(f4PlaneTest);
+}

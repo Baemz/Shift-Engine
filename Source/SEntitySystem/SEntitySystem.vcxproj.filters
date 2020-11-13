@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{51d7a954-15e3-4e47-a11e-c1d5ed3af226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{734d63d0-0413-4fc0-baaf-0c346f2acd96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{a33bd801-3ddd-4100-acc8-6e7ba3dcdf4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{9187b75b-4118-4dc1-b6c2-a9da0f36b904}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Native">
+      <UniqueIdentifier>{3bc8920c-a8d6-49ae-836a-d200c19a2d79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SEntitySystem_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_ComponentArray.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_EntityManager.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_ComponentManager.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_SystemManager.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_System.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SES_EntitySystem.h" />
+    <ClInclude Include="SES_TransformComponent.h">
+      <Filter>Components\Native</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SEntitySystem_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SES_EntityManager.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SES_ComponentManager.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SES_SystemManager.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SES_EntitySystem.cpp" />
+  </ItemGroup>
+</Project>

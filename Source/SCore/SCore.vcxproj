@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Final|x64">
+      <Configuration>Final</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{7B507F6F-7BED-451A-95A5-46AE5CEE234B}</ProjectGuid>
+    <RootNamespace>Core</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SCore_Precompiled.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>..\SUtilities;..\SGraphics;..\SRender;..\SPhysics;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SCore_Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\SUtilities;..\SGraphics;..\SRender;..\SPhysics;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SCore_Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_FINAL;IS_PC_BUILD;_UNICODE;UNICODE;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\SUtilities;..\SGraphics;..\SRender;..\SPhysics;..\SExternal\ImGui\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="SC_AutoLock.h" />
+    <ClInclude Include="SC_FastEvent.h" />
+    <ClInclude Include="SC_Function.h" />
+    <ClInclude Include="SC_Console.h" />
+    <ClInclude Include="SC_DirtyFlag.h" />
+    <ClInclude Include="SC_Enum.h" />
+    <ClInclude Include="SC_Event.h" />
+    <ClInclude Include="SC_Future.h" />
+    <ClInclude Include="SC_GlobalDisabledWarnings.h" />
+    <ClInclude Include="SC_IndexAllocator.h" />
+    <ClInclude Include="SC_InputStructs.h" />
+    <ClInclude Include="SC_KeyCodes.h" />
+    <ClInclude Include="SC_LDF.h" />
+    <ClInclude Include="SC_Logger.h" />
+    <ClInclude Include="SC_Memory.h" />
+    <ClInclude Include="SC_MessageReciever.h" />
+    <ClInclude Include="SC_Misc.h" />
+    <ClInclude Include="SC_Module.h" />
+    <ClInclude Include="SC_ModuleManager.h" />
+    <ClInclude Include="SC_Mutex.h" />
+    <ClInclude Include="SC_MutexImpl.h" />
+    <ClInclude Include="SC_Pair.h" />
+    <ClInclude Include="SC_Profiler.h" />
+    <ClInclude Include="SC_ProfilerTags.h" />
+    <ClInclude Include="SC_Random.h" />
+    <ClInclude Include="SC_Relocate.h" />
+    <ClInclude Include="SC_Resource.h" />
+    <ClInclude Include="SC_Assert.h" />
+    <ClInclude Include="SC_Atomics.h" />
+    <ClInclude Include="SC_BaseDefines.h" />
+    <ClInclude Include="SC_CommandLineManager.h" />
+    <ClInclude Include="SC_CommonDefines.h" />
+    <ClInclude Include="SC_CommonIncludes.h" />
+    <ClInclude Include="SC_Config.h" />
+    <ClInclude Include="SC_File.h" />
+    <ClInclude Include="SC_RefPtr.h" />
+    <ClInclude Include="SC_Engine.h" />
+    <ClInclude Include="SC_EngineInterface.h" />
+    <ClInclude Include="SC_EnginePaths.h" />
+    <ClInclude Include="SC_Filewatcher.h" />
+    <ClInclude Include="SC_InputManager.h" />
+    <ClInclude Include="SC_Json.hpp" />
+    <ClInclude Include="SC_MemoryHandler.h" />
+    <ClInclude Include="SC_MemoryOperators.h" />
+    <ClInclude Include="SC_MessageHandler.h" />
+    <ClInclude Include="SC_Message.h" />
+    <ClInclude Include="SC_Semaphore.h" />
+    <ClInclude Include="SC_Singleton.h" />
+    <ClInclude Include="SC_ThreadPool.h" />
+    <ClInclude Include="SCore_Precompiled.h" />
+    <ClInclude Include="SC_PlatformDefines.h" />
+    <ClInclude Include="SC_RefCounted.h" />
+    <ClInclude Include="SC_ResourcePool.h" />
+    <ClInclude Include="SC_Thread.h" />
+    <ClInclude Include="SC_ThreadTools.h" />
+    <ClInclude Include="SC_Timer.h" />
+    <ClInclude Include="SC_UniquePtr.h" />
+    <ClInclude Include="SC_VoidData.h" />
+    <ClInclude Include="SC_Window.h" />
+    <ClInclude Include="SC_Window_Win64.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SC_CommandLineManager.cpp" />
+    <ClCompile Include="SC_Config.cpp" />
+    <ClCompile Include="SC_Console.cpp" />
+    <ClCompile Include="SC_Engine.cpp" />
+    <ClCompile Include="SC_EngineInterface.cpp" />
+    <ClCompile Include="SC_EnginePaths.cpp" />
+    <ClCompile Include="SC_Event.cpp" />
+    <ClCompile Include="SC_FastEvent.cpp" />
+    <ClCompile Include="SC_File.cpp" />
+    <ClCompile Include="SC_Filewatcher.cpp" />
+    <ClCompile Include="SC_Future.cpp" />
+    <ClCompile Include="SC_IndexAllocator.cpp" />
+    <ClCompile Include="SC_InputManager.cpp" />
+    <ClCompile Include="SC_LDF.cpp" />
+    <ClCompile Include="SC_Logger.cpp" />
+    <ClCompile Include="SC_Memory.cpp" />
+    <ClCompile Include="SC_MemoryHandler.cpp" />
+    <ClCompile Include="SC_MessageHandler.cpp" />
+    <ClCompile Include="SC_Misc.cpp" />
+    <ClCompile Include="SC_Module.cpp" />
+    <ClCompile Include="SC_ModuleManager.cpp" />
+    <ClCompile Include="SC_Mutex.cpp" />
+    <ClCompile Include="SC_MutexImpl.cpp" />
+    <ClCompile Include="SC_Random.cpp" />
+    <ClCompile Include="SC_Semaphore.cpp" />
+    <ClCompile Include="SC_ThreadPool.cpp" />
+    <ClCompile Include="SC_Profiler.cpp" />
+    <ClCompile Include="SC_Assert.cpp" />
+    <ClCompile Include="SCore_Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Final|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SC_RefCounted.cpp" />
+    <ClCompile Include="SC_Relocate.cpp" />
+    <ClCompile Include="SC_Resource.cpp" />
+    <ClCompile Include="SC_ResourcePool.cpp" />
+    <ClCompile Include="SC_Thread.cpp" />
+    <ClCompile Include="SC_ThreadTools.cpp" />
+    <ClCompile Include="SC_Timer.cpp" />
+    <ClCompile Include="SC_Window.cpp" />
+    <ClCompile Include="SC_Window_Win64.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="SCore.natvis" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

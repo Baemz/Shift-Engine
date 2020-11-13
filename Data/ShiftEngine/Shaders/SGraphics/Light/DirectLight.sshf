@@ -1,0 +1,52 @@
+import "SGraphics/Light/Light.sshf"
+
+// GGX/Towbridge-Reitz normal distribution function.
+// Uses Disney's reparametrization of alpha = roughness^2.
+float GGX(float cosLh, float roughness)
+{
+	float alpha = roughness * roughness;
+	float alphaSq = alpha * alpha;
+
+	float denom = (cosLh * cosLh) * (alphaSq - 1.0) + 1.0;
+	return alphaSq / (PI * denom * denom);
+}
+
+// Single term for separable Schlick-GGX below.
+float GASchlickG1(float cosTheta, float k)
+{
+	return cosTheta / (cosTheta * (1.0 - k) + k);
+}
+
+// Schlick-GGX approximation of geometric attenuation function using Smith's method.
+float GASchlickGGX(float cosLi, float cosLo, float roughness)
+{
+	float r = roughness + 1.0;
+	float k = (r * r) / 8.0; // Epic suggests using this roughness remapping for analytic lights.
+	return GASchlickG1(cosLi, k) * GASchlickG1(cosLo, k);
+}
+
+float3 DirectLight(in ObjectAttributes aAttributes, float3 aToEye, float3 aToLight, float3 aLightColor, float aLightIntensity, float aAttenuation)
+{
+	float3 directLight = float3(0.0f, 0.0f, 0.0f);
+
+	float3 F0 = lerp(Dielectric, aAttributes.myDiffuse, aAttributes.myMetallic);
+
+	float3 halfVec = normalize(aToLight + aToEye);
+
+	float nDotL = max(0.0, dot(aAttributes.myNormal, aToLight));
+	float nDotC = max(0.0, dot(aAttributes.myNormal, aToEye));
+	float nDotHalf = max(0.0, dot(aAttributes.myNormal, halfVec));
+
+	float3 fresnel = FresnelSchlick(F0, max(0.0, dot(halfVec, aToEye)));
+	float ndf = GGX(nDotHalf, aAttributes.myRoughness);
+	float geomAttenuation = GASchlickGGX(nDotL, nDotC, aAttributes.myRoughness);
+
+	float3 kd = lerp(float3(1, 1, 1) - fresnel, float3(0, 0, 0), aAttributes.myMetallic);
+
+	float3 diffuseBRDF = kd * aAttributes.myDiffuse;
+	float3 specularBRDF = (fresnel * ndf * geomAttenuation) / max(Epsilon, 4.0 * nDotL * nDotC);
+
+	float3 light = (diffuseBRDF + specularBRDF) * aLightIntensity * nDotL;
+
+	return directLight = light * aLightColor * aAttenuation;
+}

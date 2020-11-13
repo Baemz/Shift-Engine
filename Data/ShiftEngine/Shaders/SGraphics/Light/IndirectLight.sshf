@@ -1,0 +1,51 @@
+import "SGraphics/Light/Light.sshf"
+//import "SGraphics/VXGI/VoxelConeTrace.sshf"
+
+SR_TextureCube skyDiffuse : SR_TextureRef_SkyDiffuse;
+SR_TextureCube skySpecular : SR_TextureRef_SkySpecular;
+SR_Texture2D skyBrdf : SR_TextureRef_SkyBrdf;
+
+uint QuerySkyTextureLevels()
+{
+	uint width, height, levels;
+	skySpecular.GetDimensions(0, width, height, levels);
+	return levels;
+}
+
+float3 AmbientLight(in ObjectAttributes attributes, in float3 toEye)
+{
+	float3 ambientLight = float3(0.0f, 0.0f, 0.0f);
+
+	// Sample diffuse irradiance at normal direction.
+	float3 irradiance = SR_SampleLod(SamplerLinearWrap, skyDiffuse, attributes.myNormal, 1).rgb;
+
+	// Calculate Fresnel term for ambient lighting.
+	// Since we use pre-filtered cubemap(s) and irradiance is coming from many directions
+	// use cosLo instead of angle with light's half-vector (cosLh above).
+	// See: https://seblagarde.wordpress.com/2011/08/17/hello-world/
+	float3 F0 = lerp(Dielectric, attributes.myDiffuse, attributes.myMetallic);
+	float nDotC = max(0.0, dot(attributes.myNormal, toEye));
+	float3 reflectionVec = 2.0 * nDotC * attributes.myNormal - toEye;
+	float3 F = FresnelSchlick(F0, nDotC);
+
+	// Get diffuse contribution factor (as with direct lighting).
+	float3 kd = lerp(1.0 - F, 0.0, attributes.myMetallic);
+
+	// Irradiance map contains exitant radiance assuming Lambertian BRDF, no need to scale by 1/PI here either.
+	float3 diffuseIBL = kd * attributes.myDiffuse * irradiance;
+
+	// Sample pre-filtered specular reflection environment at correct mipmap level.
+	uint specularTextureLevels = QuerySkyTextureLevels();
+	float3 specularIrradiance = SR_SampleLod(SamplerLinearWrap, skySpecular, reflectionVec, attributes.myRoughness * specularTextureLevels).rgb;
+
+	// Split-sum approximation factors for Cook-Torrance specular BRDF.
+	float2 specularBRDF = SR_SampleLod(SamplerLinearClamp, skyBrdf, float2(nDotC, attributes.myRoughness), 0).rg;
+
+	// Total specular IBL contribution.
+	float3 specularIBL = (F0 * specularBRDF.x + specularBRDF.y) * specularIrradiance;
+
+	// Total ambient lighting contribution.
+	ambientLight = diffuseIBL + specularIBL;
+
+	return ambientLight;
+}

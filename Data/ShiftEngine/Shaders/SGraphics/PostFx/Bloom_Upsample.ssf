@@ -1,0 +1,74 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D Source : SR_Texture0;
+
+SR_ConstantBuffer Constants : SR_ConstantBuffer0
+{
+    float2 myMinUV;
+    float2 myMaxUV;
+    float2 myTexelSizeAndUVScale;
+    float2 myScaleFilter;
+    int2 myDestOffset;
+    float myStrength;
+}
+
+#ifdef ENABLE_ALPHA
+SR_Texture2DRW<float4> Output : SR_TextureRW0;
+float4 SampleSource(float2 aUV)
+{
+    return SR_SampleLod0(SamplerLinearClamp, Source, clamp(aUV * myTexelSizeAndUVScale, myMinUV, myMaxUV));
+}
+#else
+SR_Texture2DRW<float3> Output : SR_TextureRW0;
+float3 SampleSource(float2 aUV)
+{
+    return SR_SampleLod0(SamplerLinearClamp, Source, clamp(aUV * myTexelSizeAndUVScale, myMinUV, myMaxUV)).xyz;
+}
+#endif
+
+[numthreads(8,8,1)]
+void main(uint3 threadIndex : SV_DispatchThreadId)
+{
+    float2 uv = float2(threadIndex.xy) + float2(0.5, 0.5);
+
+    float x0 = -myScaleFilter.x;
+    float x1 = 0.0;
+    float x2 = myScaleFilter.x;
+    float y0 = -myScaleFilter.y;
+    float y1 = 0.0;
+    float y2 = myScaleFilter.y;
+
+#ifdef ENABLE_ALPHA
+    float4 sample00 = SampleSource(uv + float2(x0, y0));
+    float4 sample01 = SampleSource(uv + float2(x0, y1));
+    float4 sample02 = SampleSource(uv + float2(x0, y2));
+    float4 sample10 = SampleSource(uv + float2(x1, y0));
+    float4 sample11 = SampleSource(uv + float2(x1, y1));
+    float4 sample12 = SampleSource(uv + float2(x1, y2));
+    float4 sample20 = SampleSource(uv + float2(x2, y0));
+    float4 sample21 = SampleSource(uv + float2(x2, y1));
+    float4 sample22 = SampleSource(uv + float2(x2, y2));
+
+    float4 sampleValue = ((sample00 + sample20 + sample02 + sample22) + ((sample10 + sample01 + sample21 + sample12) * 2.0) + (sample11 * 4.0)) / 16.0;
+    float4 dest = Output[threadIndex.xy];
+
+    Output[threadIndex.xy + myDestOffset] = lerp(dest, sampleValue, myStrength);
+
+#else
+    float3 sample00 = SampleSource(uv + float2(x0, y0));
+    float3 sample01 = SampleSource(uv + float2(x0, y1));
+    float3 sample02 = SampleSource(uv + float2(x0, y2));
+    float3 sample10 = SampleSource(uv + float2(x1, y0));
+    float3 sample11 = SampleSource(uv + float2(x1, y1));
+    float3 sample12 = SampleSource(uv + float2(x1, y2));
+    float3 sample20 = SampleSource(uv + float2(x2, y0));
+    float3 sample21 = SampleSource(uv + float2(x2, y1));
+    float3 sample22 = SampleSource(uv + float2(x2, y2));
+
+    float3 sampleValue = ((sample00 + sample20 + sample02 + sample22) + ((sample10 + sample01 + sample21 + sample12) * 2.0) + (sample11 * 4.0)) / 16.0;
+    float3 dest = Output[threadIndex.xy].xyz;
+
+    Output[threadIndex.xy + myDestOffset] = lerp(dest, sampleValue, myStrength);
+
+#endif
+}

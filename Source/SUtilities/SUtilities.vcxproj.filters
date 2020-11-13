@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Math">
+      <UniqueIdentifier>{12696f41-cb5d-4aaf-b2ae-f315e330fd79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{e5cddc3f-26b4-45fc-95bd-427d2c6afce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms">
+      <UniqueIdentifier>{d48a7203-a448-482c-beee-b7bd6657d770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{ed486029-c0e0-447f-998d-951ab5bff8d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{4a57bcbd-9382-4f35-a327-07400aae4f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{d349a194-9a93-4881-ba47-a047736294fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpatialVolumes">
+      <UniqueIdentifier>{64749ad2-a0b3-4f6b-8004-47ed5a006aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{5149c26a-cede-41f4-9570-9c29c027422c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Meta">
+      <UniqueIdentifier>{5d7ca3d0-e909-4597-8f4f-0ff08babe878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Natvis">
+      <UniqueIdentifier>{33567207-9ed4-451f-ab51-6e7c68517856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BoundingVolumes">
+      <UniqueIdentifier>{b044c016-0345-4032-b99a-85ef3fcd0060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{0e6b669a-09cd-4c55-b29f-c4f37a6d0eec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SC_Hash.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Types.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Vector.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Vector2.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Vector3.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Vector4.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Vector4f.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Matrix33.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Matrix44.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Plane.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_DetectionIdiom.h">
+      <Filter>Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Container.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_GrowingArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Array.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_HashMap.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_AABB.h">
+      <Filter>BoundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Intersection.h">
+      <Filter>BoundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Sphere.h">
+      <Filter>BoundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Grid.h">
+      <Filter>SpatialVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_QuadTree.h">
+      <Filter>SpatialVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_VolumeObject.h">
+      <Filter>SpatialVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_String.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_StringHelpers.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_TypeTraits.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_CommonFuncs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Tuple.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Stopwatch.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_SIMDIntrinsics.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Ray.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Cylinder.h">
+      <Filter>BoundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_MathTypes.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_HybridArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Aligned.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_DynamicCircularArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="SC_Bitset.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SC_Hash.cpp">
+      <Filter>Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Intersection.cpp">
+      <Filter>BoundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Sphere.cpp">
+      <Filter>BoundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_String.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_StringHelpers.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_CommonFuncs.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Ray.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Cylinder.cpp">
+      <Filter>BoundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="SC_Bitset.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="SUtilities.natvis">
+      <Filter>Natvis</Filter>
+    </Natvis>
+  </ItemGroup>
+</Project>

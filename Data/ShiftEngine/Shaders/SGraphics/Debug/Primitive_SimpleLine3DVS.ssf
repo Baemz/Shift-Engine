@@ -1,0 +1,27 @@
+struct VertexIn
+{
+	float4 myPosition : POSITION;
+	float4 myColor : COLOR;
+};
+
+struct VertexOut
+{
+	float4 myPosition : SV_Position;
+	float4 myColor : COLOR;
+};
+
+SR_ConstantBuffer ViewConstants : SR_ConstantBuffer0
+{
+	float4x4 ViewProjection;
+};
+
+
+VertexOut main(VertexIn input)
+{
+    VertexOut output;
+
+    output.myPosition = mul(ViewProjection, float4(input.myPosition.xyz, 1.0));
+	output.myColor = input.myColor;
+
+    return output;
+}

@@ -1,0 +1,35 @@
+*.lib filter=lfs diff=lfs merge=lfs -text
+Data/*.dds filter=lfs diff=lfs merge=lfs -binary
+Data/*.jpg filter=lfs diff=lfs merge=lfs -binary
+Data/*.png filter=lfs diff=lfs merge=lfs -binary
+Data/*.tif filter=lfs diff=lfs merge=lfs -binary
+Data/*.tga filter=lfs diff=lfs merge=lfs -binary
+Data/*.fbx filter=lfs diff=lfs merge=lfs -binary
+Data/*.obj filter=lfs diff=lfs merge=lfs -binary
+Data/*.smf filter=lfs diff=lfs merge=lfs -binary
+Daynight2.gif filter=lfs diff=lfs merge=lfs
+Dependencies/P4Merge/P4Merge.7z filter=lfs diff=lfs merge=lfs
+Source/SExternal/VLD/lib/vld.lib filter=lfs diff=lfs merge=lfs -binary
+Source/SExternal/VLD/DLLs/vld_x64.dll filter=lfs diff=lfs merge=lfs -binary
+Source/SExternal/VLD/DLLs/dbghelp.dll filter=lfs diff=lfs merge=lfs -binary
+Source/SExternal/VLD/DLLs/vld_x64.pdb filter=lfs diff=lfs merge=lfs -binary
+Source/SExternal/VLD/DLLs/Microsoft.DTfW.DHL.manifest filter=lfs diff=lfs merge=lfs -text
+Source/SExternal/DirectXShaderCompiler/Binaries/dxcompiler.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXShaderCompiler/Binaries/dxcompiler.pdb filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXShaderCompiler/Binaries/dxil.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXShaderCompiler/Binaries/dxilconv.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXShaderCompiler/Binaries/dxilconv.pdb filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXTex/Binaries/Debug/DirectXTex.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXTex/Binaries/Debug/DirectXTex.pdb filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXTex/Binaries/Release/DirectXTex.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/DirectXTex/Binaries/Release/DirectXTex.pdb filter=lfs diff=lfs merge=lfs
+Source/SExternal/assimp/Binaries/Debug/assimp-vc140-mt.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/assimp/Binaries/Debug/assimp-vc140-mt.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/assimp/Binaries/Release/assimp-vc140-mt.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/assimp/Binaries/Release/assimp-vc140-mt.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/WinPixEventRuntime/Binaries/WinPixEventRuntime.dll filter=lfs diff=lfs merge=lfs
+Source/SExternal/WinPixEventRuntime/Binaries/WinPixEventRuntime.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/LUA/Release/lua.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/LUA/Debug/lua.lib filter=lfs diff=lfs merge=lfs
+Source/SExternal/LUA/Debug/lua.pdb filter=lfs diff=lfs merge=lfs
+Source/SExternal/VulkanSDK/Lib/*.lib filter=lfs diff=lfs merge=lfs

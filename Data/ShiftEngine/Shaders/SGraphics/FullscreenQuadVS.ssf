@@ -1,0 +1,15 @@
+
+struct OutStruct
+{
+    float4 myPosition : SV_Position,
+    float2 myUV : UV
+};
+
+OutStruct main(in uint aVertexID : SV_VertexID)
+{
+	OutStruct output;
+
+    output.myUV = float2(uint2(aVertexID, aVertexID << 1) & 2);
+    output.myPosition = float4(lerp(float2(-1, 1), float2(1, -1), output.myUV), 0, 1);
+
+	return output;

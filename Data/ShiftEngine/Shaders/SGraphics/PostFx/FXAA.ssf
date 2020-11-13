@@ -1,0 +1,34 @@
+#define FXAA_PC 1
+#define FXAA_HLSL_5 1
+#define FXAA_GREEN_AS_LUMA 1
+#define FXAA_QUALITY__PRESET 39
+import "FXAA.sshf"
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D FrameBuffer : SR_Texture0;
+
+struct InStruct
+{
+	float4 position : SV_POSITION;
+	float4 color : COLOR;
+	float2 uv : UV;
+};
+
+struct OutStruct
+{
+    float4 color : SV_Target;
+};
+
+OutStruct main(in InStruct input)
+{
+	OutStruct output;
+	const float fxaaSubpix = 0.75f;
+	const float fxaaEdgeThreshold = 0.166f;
+	const float fxaaEdgeThresholdMin = 0.0833f;
+	float2 Resolution = SR_ViewConstants.myResolution;
+
+	FxaaTex tex = { SR_Sampler_Linear_Clamp, FrameBuffer };
+	output.color = FxaaPixelShader(input.uv, 0, tex, tex, tex, 1 / Resolution, 0, 0, 0, fxaaSubpix, fxaaEdgeThreshold, fxaaEdgeThresholdMin, 0, 0, 0, 0);
+	return output;
+}

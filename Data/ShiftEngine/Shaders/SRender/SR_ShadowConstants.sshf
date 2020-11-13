@@ -1,0 +1,8 @@
+
+// Must match "Source/SGraphics/SG_ShadowConstants.h"
+SR_ConstantBuffer SR_ShadowConstants : SR_ConstantBufferRef_ShadowConstants
+{
+	float4x4 ShadowWorldToClip[4]; // Match number with SG_Shadows::ourNumShadowCascades
+	float4 ShadowSampleRotation;
+	float PCFFilterOffset;
+}

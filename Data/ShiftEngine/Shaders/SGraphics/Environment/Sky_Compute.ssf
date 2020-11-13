@@ -1,0 +1,28 @@
+import "SGraphics/Environment/Sky.sshf"
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_Depth.sshf"
+
+SR_Texture2DRW<float4> outLightTexture : SR_TextureRW0;
+
+[numthreads(8, 8, 1)]
+void main(uint3 threadID : SV_DispatchThreadID)
+{	
+	float2 Resolution = SR_ViewConstants.myResolution;
+	if ((float)threadID.x > Resolution.x || (float)threadID.y > Resolution.y)
+		return;
+	
+	int3 pixelLocation = int3(threadID.xy, 0);
+	float depth = SR_LoadDepthAtPixel(pixelLocation.xy);
+	if (depth == 0.0)
+	{
+		float2 uv = SR_PixelToUV(pixelLocation, Resolution);
+		float3 worldPosition = SR_ClipToWorld(uv, 1.0);
+		float3 viewDir = normalize(worldPosition - SR_ViewConstants.myCameraPosition);
+
+		float4 outColor = (float4)0;
+
+		outColor.rgb += CalculateSkyColor(viewDir);
+
+		outLightTexture[pixelLocation.xy] = outColor * SR_EnvironmentConstants.mySunIntensity;
+	}
+}

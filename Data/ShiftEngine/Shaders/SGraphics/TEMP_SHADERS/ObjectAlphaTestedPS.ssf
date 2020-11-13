@@ -1,0 +1,20 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D maskTexture : SR_Texture5;
+
+struct InputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+void main(InputStruct input) 
+{ 
+    float alpha = maskTexture.Sample(SamplerAnisoWrap, input.myUV).r;
+    clip(alpha < 0.5 ? -1 : 1);
+    return;
+}

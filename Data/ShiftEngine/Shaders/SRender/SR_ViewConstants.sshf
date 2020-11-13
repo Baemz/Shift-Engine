@@ -1,0 +1,47 @@
+
+// Must reflect "/Source/SRender/SR_ViewConstants.h"
+
+SR_ConstantBuffer SR_ViewConstants : SR_ConstantBufferRef_ViewConstants
+{
+	float4x4 myWorldToClip;
+	float4x4 myClipToWorld;
+
+	float4x4 myWorldToCamera;
+	float4x4 myCameraToWorld;
+
+	float4x4 myCameraToClip;
+	float4x4 myClipToCamera;
+
+	float3 myCameraPosition;
+	float myCameraFov;
+	float myCameraNear;
+	float myCameraFar;
+
+	float2 myResolution;
+	uint myFrameIndex;
+
+}
+
+float3 SR_ClipToCamera(float2 aScreenCoord, float aDepth)
+{
+	float2 screenPos = aScreenCoord * 2.0f - 1.0f;
+	screenPos.y *= -1.0f;
+	float4 projectedPos = float4(screenPos, aDepth, 1.0f);
+	float4 viewPosition = SR_Transform(SR_ViewConstants.myClipToCamera, projectedPos);
+	return viewPosition.xyz / viewPosition.w;
+}
+
+float3 SR_ClipToWorld(float2 aScreenCoord, float aDepth)
+{
+	float4 viewPos = float4(SR_ClipToCamera(aScreenCoord, aDepth), 1.0f);
+	float4 worldPos = SR_Transform(SR_ViewConstants.myCameraToWorld, viewPos);
+	return worldPos.xyz;
+}
+
+float2 SR_PixelToUV(in const int2 aPixelCoord, in const float2 aResolution)
+{
+	float2 uv = (aPixelCoord.xy / aResolution);
+	uv.x = aPixelCoord.x / aResolution.x + 0.5f / aResolution.x;
+	uv.y = aPixelCoord.y / aResolution.y + 0.5f / aResolution.y;
+	return uv;
+}

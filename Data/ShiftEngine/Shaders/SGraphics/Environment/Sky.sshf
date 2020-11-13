@@ -1,0 +1,48 @@
+import "SRender/SR_EnvironmentConstants.sshf"
+
+// Atmosphere based on: https://www.shadertoy.com/view/Ml2cWG
+
+float3 GetZenithColor()
+{
+	return float3(0.145, 0.239, 0.557);
+}
+
+float3 GetAzimuthColor()
+{
+	return float3(0.3, 0.3, 0.4);
+}
+
+float3 CalculateSkyColor(in float3 aViewDir)
+{
+	const float PI = 3.141592653;
+
+	float zenith = aViewDir.y;
+	float sunScattering = saturate(SR_EnvironmentConstants.myToSunDirection.y + 0.1f);
+	float atmosphereDensity = 0.5;
+	float zenithDensity = atmosphereDensity / pow(max(0.000001f, zenith), 0.75f);
+	float sunScatterDensity = atmosphereDensity / pow(max(0.000001f, sunScattering), 0.75f);
+	
+	float3 aberration = float3(0.39, 0.57, 1.0);
+	float3 skyAbsorption = saturate(exp2(aberration * -zenithDensity) * 2.0f);
+	float3 sunAbsorption = saturate(SR_EnvironmentConstants.mySunColor * exp2(aberration * -sunScatterDensity) * 2.0f);
+
+	float sunAmount = distance(aViewDir, SR_EnvironmentConstants.myToSunDirection);
+	float rayleigh = 1.0 + pow(1.0 - saturate(sunAmount), 2.0) * PI * 0.5;
+	float mie_disk = saturate(1.0 - pow(sunAmount, 0.1));
+	float3 mie = mie_disk * mie_disk * (3.0 - 2.0 * mie_disk) * 2.0 * PI * sunAbsorption;
+
+	float3 sky = lerp(GetAzimuthColor(), GetZenithColor() * zenithDensity * rayleigh, skyAbsorption);
+	sky = lerp(sky * skyAbsorption, sky, sunScattering);
+
+#ifndef DISABLE_SUN_VISIBILITY
+	float cos = dot(SR_EnvironmentConstants.myToSunDirection, aViewDir);
+	float sunFactor = smoothstep(SR_EnvironmentConstants.mySunCosLow, SR_EnvironmentConstants.mySunCosHigh, cos) * SR_EnvironmentConstants.myDirectSunFactor / PI;
+	float3 sun = SR_EnvironmentConstants.mySunColor * sunFactor * skyAbsorption;
+	sky += sun;
+#endif
+	sky += mie;
+	sky *= (sunAbsorption + length(sunAbsorption)) * 0.5f;
+	sky *= 0.25;
+	//sky = max(pow(saturate(dot(ToSunDirection, aViewDir)), 64) * SunLightColor, 0) * skyAbsorption;
+	return sky;
+}

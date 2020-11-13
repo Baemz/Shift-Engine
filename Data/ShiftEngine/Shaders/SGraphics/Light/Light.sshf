@@ -1,0 +1,13 @@
+import "SGraphics/Light/Light_Structs.sshf"
+import "SRender/SR_EnvironmentConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+
+static const float PI = 3.141592653589793f;
+static const float Epsilon = 0.00001f;
+static const float3 Dielectric = float3(0.04f, 0.04f, 0.04f);
+
+// Shlick's approximation of the Fresnel factor.
+float3 FresnelSchlick(float3 F0, float cosTheta)
+{
+	return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}

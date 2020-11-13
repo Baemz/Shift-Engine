@@ -1,0 +1,4 @@
+float Luminance(float3 aColor)
+{
+    return dot(aColor, float3(0.2126f, 0.7152f, 0.0722f));
+}

@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Final|x64">
+      <Configuration>Final</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{DBD053D8-C103-491E-B70E-1EFE1A1F1DD7}</ProjectGuid>
+    <RootNamespace>Tools</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <VCToolsVersion>
+    </VCToolsVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <OutDir>..\..\TEMP\$(ProjectName)_$(Configuration)\Libs\</OutDir>
+    <IntDir>..\..\TEMP\$(ProjectName)_$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>STools_Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>NodeEditor;..\SRender;..\SGraphics;..\SEntitySystem;..\SCore;..\SUtilities;..\SClient;..\SExternal\ImGui\include;..\SExternal\assimp\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>STools_Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>NodeEditor;..\SRender;..\SGraphics;..\SEntitySystem;..\SCore;..\SUtilities;..\SClient;..\SExternal\ImGui\include;..\SExternal\assimp\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Final|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>STools_Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>NodeEditor;..\SRender;..\SGraphics;..\SEntitySystem;..\SCore;..\SUtilities;..\SClient;..\SExternal\ImGui\include;..\SExternal\assimp\include</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="STools_AssetImporter.h" />
+    <ClInclude Include="STools_AxisGizmoBase.h" />
+    <ClInclude Include="STools_ConsoleWindow.h" />
+    <ClInclude Include="STools_GraphicsWorld.h" />
+    <ClInclude Include="STools_LevelEditor.h" />
+    <ClInclude Include="STools_LogWindow.h" />
+    <ClInclude Include="STools_MaterialEditor.h" />
+    <ClInclude Include="STools_GraphicsSettings.h" />
+    <ClInclude Include="STools_RegisterWindows.h" />
+    <ClInclude Include="STools_ScaleGizmo.h" />
+    <ClInclude Include="STools_ScreenToWorld.h" />
+    <ClInclude Include="STools_AssetRepository.h" />
+    <ClInclude Include="STools_AssetTypes.h" />
+    <ClInclude Include="STools_Editor.h" />
+    <ClInclude Include="STools_EditorShelf.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeEditor\crude_json.h" />
+    <ClInclude Include="NodeEditor\imgui_bezier_math.h" />
+    <ClInclude Include="NodeEditor\imgui_canvas.h" />
+    <ClInclude Include="NodeEditor\imgui_extra_math.h" />
+    <ClInclude Include="NodeEditor\imgui_node_editor.h" />
+    <ClInclude Include="NodeEditor\imgui_node_editor_internal.h" />
+    <ClInclude Include="NodeGraph.h" />
+    <ClInclude Include="STools_NodeGraphEditor.h" />
+    <ClInclude Include="STools_Precompiled.h" />
+    <ClInclude Include="STools_DynamicSky.h" />
+    <ClInclude Include="STools_EditorSubModule.h" />
+    <ClInclude Include="STools_Statistics.h" />
+    <ClInclude Include="STools_TextureViewer.h" />
+    <ClInclude Include="STools_TransformGizmo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="STools_AssetImporter.cpp" />
+    <ClCompile Include="STools_AxisGizmoBase.cpp" />
+    <ClCompile Include="STools_ConsoleWindow.cpp" />
+    <ClCompile Include="STools_GraphicsWorld.cpp" />
+    <ClCompile Include="STools_LevelEditor.cpp" />
+    <ClCompile Include="STools_LogWindow.cpp" />
+    <ClCompile Include="STools_MaterialEditor.cpp" />
+    <ClCompile Include="STools_GraphicsSettings.cpp" />
+    <ClCompile Include="STools_RegisterWindows.cpp" />
+    <ClCompile Include="STools_ScaleGizmo.cpp" />
+    <ClCompile Include="STools_ScreenToWorld.cpp" />
+    <ClCompile Include="STools_AssetRepository.cpp" />
+    <ClCompile Include="STools_Editor.cpp" />
+    <ClCompile Include="STools_EditorShelf.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeEditor\crude_json.cpp" />
+    <ClCompile Include="NodeEditor\imgui_canvas.cpp" />
+    <ClCompile Include="NodeEditor\imgui_node_editor.cpp" />
+    <ClCompile Include="NodeEditor\imgui_node_editor_api.cpp" />
+    <ClCompile Include="NodeGraph.cpp" />
+    <ClCompile Include="STools_NodeGraphEditor.cpp" />
+    <ClCompile Include="STools_Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Final|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="STools_DynamicSky.cpp" />
+    <ClCompile Include="STools_EditorSubModule.cpp" />
+    <ClCompile Include="STools_Statistics.cpp" />
+    <ClCompile Include="STools_TextureViewer.cpp" />
+    <ClCompile Include="STools_TransformGizmo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NodeEditor\imgui_bezier_math.inl" />
+    <None Include="NodeEditor\imgui_extra_math.inl" />
+    <None Include="NodeEditor\imgui_node_editor_internal.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NodeEditor\imgui_node_editor.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SGraphics\SGraphics.vcxproj">
+      <Project>{6672c4b8-9c3a-40f4-abd3-b38ae1381f5f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

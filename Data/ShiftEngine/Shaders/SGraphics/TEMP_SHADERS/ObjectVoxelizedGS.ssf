@@ -1,0 +1,86 @@
+struct InputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+struct OutputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myNormal : NORMAL;
+    //nointerpolation float4 myAABB : AABB;
+    float3 myWorldPos : WORLD_POSITION;
+    float2 myUV : UV;
+};
+
+SR_ConstantBuffer VoxelSettings : SR_ConstantBuffer0
+{
+    float3 VoxelSceneMinPos;
+    float VoxelSize;
+    float3 VoxelSceneCenter;
+    float VoxelSizeInversed;
+    float VoxelSceneTexelSize;
+	float VoxelSceneWorldSize;
+	float VoxelWorldScale;
+    uint VoxelSceneResolution;
+};
+
+float4 GetAABB(float4 aPos[3], float2 aPixelDiagonal)
+{
+	float4 aabb;
+
+	aabb.xy = min(aPos[2].xy, min(aPos[1].xy, aPos[0].xy));
+	aabb.zw = max(aPos[2].xy, max(aPos[1].xy, aPos[0].xy));
+
+	// enlarge by half-pixel
+	aabb.xy -= aPixelDiagonal;
+	aabb.zw += aPixelDiagonal;
+
+	return aabb;
+}
+
+[maxvertexcount(3)]
+void main(triangle InputStruct input[3], inout TriangleStream<OutputStruct> outputStream)
+{
+	OutputStruct output[3];
+
+	const float3 faceNormal = abs(input[0].myWorldNormal + input[1].myWorldNormal + input[2].myWorldNormal);
+	uint maxFace = faceNormal[1] > faceNormal[0] ? 1 : 0;
+	maxFace = faceNormal[2] > faceNormal[maxFace] ? 2 : maxFace;
+
+	[unroll]
+	for (uint i = 0; i < 3; ++i)
+	{
+		output[i].myPosition = float4((input[i].myWorldPos - VoxelSceneCenter) / VoxelSize, 1.f);
+		output[i].myPosition.xyz = ((maxFace == 0) ? output[i].myPosition.zyx : ((maxFace == 1) ? output[i].myPosition.xzy : output[i].myPosition.xyz));
+		output[i].myPosition.xy *= VoxelSceneTexelSize;
+		output[i].myPosition.zw = 1;
+	}
+	
+	// Expand triangle to get fake Conservative Rasterization:
+	//float2 side0N = normalize(output[1].myPosition.xy - output[0].myPosition.xy);
+	//float2 side1N = normalize(output[2].myPosition.xy - output[1].myPosition.xy);
+	//float2 side2N = normalize(output[0].myPosition.xy - output[2].myPosition.xy);
+	//output[0].myPosition.xy += normalize(side2N - side0N);
+	//output[1].myPosition.xy += normalize(side0N - side1N);
+	//output[2].myPosition.xy += normalize(side1N - side2N);
+
+	[unroll]
+	for (uint j = 0; j < 3; j++)
+	{
+	    const float3 diff = ((input[j].myWorldPos - VoxelSceneCenter) * VoxelSceneTexelSize *VoxelSizeInversed) * float3(0.5f, -0.5f, 0.5f) + 0.5f;
+	    const float3 voxelPos = floor(diff * VoxelSceneResolution);
+		output[j].myWorldPos = voxelPos;
+		output[j].myUV = input[j].myUV;
+		output[j].myNormal = float4(input[j].myWorldNormal, 0.0);
+		output[j].myTangentSpaceMatrix = input[j].myTangentSpaceMatrix;
+		outputStream.Append(output[j]);
+	}
+
+	outputStream.RestartStrip();
+}

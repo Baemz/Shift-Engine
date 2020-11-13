@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="LUA">
+      <UniqueIdentifier>{5e63dd90-406a-4345-a043-33019095f485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mono %28C#%29">
+      <UniqueIdentifier>{a66abb7e-2ee7-4936-9078-4568fffb0c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared">
+      <UniqueIdentifier>{e51c633b-a2e6-4960-bd23-008b4539ed62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{a5706086-44c8-42ed-b2ac-8d8cfed2f219}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SS_LuaBase.h">
+      <Filter>LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="SScript_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SS_LuaScript.h">
+      <Filter>LUA</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SS_LuaBase.cpp">
+      <Filter>LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="SScript_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SS_LuaScript.cpp">
+      <Filter>LUA</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

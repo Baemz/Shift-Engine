@@ -1,0 +1,76 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+
+
+SR_Texture2D displacementTexture : SR_Texture6;
+
+struct InputStruct
+{
+    float4x4 myInstanceTransform : INSTANCE_TRANSFORM;
+    precise float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+
+struct PatchConstantInput
+{
+    float myEdges[3] : SV_TessFactor;
+    float myInside : SV_InsideTessFactor;
+};
+
+struct OutputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+SR_ConstantBuffer TessellationConstants : SR_ConstantBuffer0
+{
+    float TessellationAmount;
+    float DisplacementAmount;
+}
+
+[domain("tri")]
+OutputStruct main(PatchConstantInput input, float3 uvwCoord : SV_DomainLocation, const OutputPatch<InputStruct, 3> patch)
+{
+    OutputStruct output;
+ 
+    // Determine the values of the new vertex.
+    float3 vertexPosition = uvwCoord.x * patch[0].myPosition + uvwCoord.y * patch[1].myPosition + uvwCoord.z * patch[2].myPosition;
+    float2 uv = uvwCoord.x * patch[0].myUV + uvwCoord.y * patch[1].myUV + uvwCoord.z * patch[2].myUV;
+
+    float3 normal = normalize(uvwCoord.x * patch[0].myNormal + uvwCoord.y * patch[1].myNormal + uvwCoord.z * patch[2].myNormal);
+    float3 tangent = normalize(uvwCoord.x * patch[0].myTangent + uvwCoord.y * patch[1].myTangent + uvwCoord.z * patch[2].myTangent);
+    float3 binormal = normalize(uvwCoord.x * patch[0].myBinormal + uvwCoord.y * patch[1].myBinormal + uvwCoord.z * patch[2].myBinormal);
+
+    float displacement = SR_SampleLod0(SamplerAnisoClamp, displacementTexture, uv).r;
+    vertexPosition += normal.xyz * (displacement * 10 - 0.5) * DisplacementAmount;
+    
+    float4x4 modelTransform = patch[0].myInstanceTransform;
+    float3x3 modelTransform33 = (float3x3)modelTransform;
+    normal = normalize(SR_Transform(modelTransform33, normal));
+    tangent = normalize(SR_Transform(modelTransform33, tangent));
+    binormal = normalize(SR_Transform(modelTransform33, binormal));
+
+    float3x3 tangentSpaceMatrix = float3x3(
+        tangent.x, binormal.x, normal.x,
+        tangent.y, binormal.y, normal.y,
+        tangent.z, binormal.z, normal.z
+    );
+
+    output.myTangentSpaceMatrix = tangentSpaceMatrix;
+    output.myWorldPos = SR_Transform(modelTransform, vertexPosition).xyz;
+    output.myPosition = SR_Transform(SR_ViewConstants.myWorldToClip, output.myWorldPos);
+    output.myColor = patch[0].myColor;
+    output.myWorldNormal = normal;
+    output.myUV = uv;
+
+    return output;
+}

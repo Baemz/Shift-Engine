@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{23175ff0-1f11-438e-af91-c6fb2e78dd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{6a472fe6-6cb2-4be4-9232-305aa48c50f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{7d9a1d84-ca4d-44bf-a684-02ad17f8ff47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{54320ce1-754e-4b30-8419-e1407e350c9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Raytracing">
+      <UniqueIdentifier>{3b769565-f7a1-4e7a-9d2e-3e0770f43d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{ff87aa26-ca65-4d19-8370-13b0a3ff9f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics">
+      <UniqueIdentifier>{2243252b-f104-40da-a4da-f06002415a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Environment">
+      <UniqueIdentifier>{371ceecd-56f9-4214-be3d-1620df5df559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Object">
+      <UniqueIdentifier>{f72026fa-bcee-4044-924d-0e99c56daf5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Includes">
+      <UniqueIdentifier>{17e44363-614c-4e30-8128-03d0e3f7411c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting">
+      <UniqueIdentifier>{ac0a92fa-b03e-462c-b756-ea0d582edc74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Fullscreen">
+      <UniqueIdentifier>{1a6eac7a-6a02-4f23-9cd2-6e52d0deb53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Lights">
+      <UniqueIdentifier>{c68d955e-8bc7-4a4f-a98e-7938b4b06f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\PostFX">
+      <UniqueIdentifier>{f82f1177-a10d-4af4-873c-25d9d43b21f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Other">
+      <UniqueIdentifier>{24d32303-122c-4d1d-aa27-1a5fb2700209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{79c067e2-2493-4da3-af46-a415a6a3a19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostEffects">
+      <UniqueIdentifier>{6df7dd26-94bb-4463-9004-b678c38a1207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\SSAO">
+      <UniqueIdentifier>{4119a766-113d-443a-b2f3-efb3f03d71e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting\Shadows">
+      <UniqueIdentifier>{ae4b8001-3e52-4257-ad15-a85cf59a62d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stats">
+      <UniqueIdentifier>{b7e5551c-8ec1-4c8a-b0da-ebd75dec1b20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting\Global Illumination">
+      <UniqueIdentifier>{d9e86235-63d4-4b83-8d15-0b945546f570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Voxelization">
+      <UniqueIdentifier>{517d8505-d160-4a8e-868b-216cb0c1d359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Graphics\Lights\GI">
+      <UniqueIdentifier>{9d0bb394-d186-4777-a5c9-b8870fcb003d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{06608c4b-6269-40b8-81ee-24ec45a2c9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\View">
+      <UniqueIdentifier>{0d33d748-37f3-44de-844d-dd288bb567e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\View\Camera">
+      <UniqueIdentifier>{01f92bb9-c51a-49d2-8ac6-905528e34592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Mesh">
+      <UniqueIdentifier>{74bb596b-94ab-4937-9fe9-5144bc726ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\Texture">
+      <UniqueIdentifier>{0ccc86f7-4461-4f81-91dd-6410eff77583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{a5cc1ebf-800f-4a90-8d9b-cde8311727c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{3fd686e4-c6d8-4d25-9e73-c8b43f69e582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Environment">
+      <UniqueIdentifier>{ce12a7c3-bb10-4204-80e9-10ccdc721d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting\Tiled/Clustered">
+      <UniqueIdentifier>{66553eb2-4608-4d77-afb0-c0224765c6a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{10328875-d570-44da-ba03-0ad91aa63831}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SGraphics_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_DebugPrimitives.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_DynamicSky.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Voxelizer.cpp">
+      <Filter>Lighting\Global Illumination</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Shadows.cpp">
+      <Filter>Lighting\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_DirectionalLight.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Material.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_MaterialFactory.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Mesh.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_MeshCache.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_MeshInstance.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_MeshStreamer.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_StaticMesh.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Model.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_ModelLoader.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_PostEffects.cpp">
+      <Filter>PostEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_FrameResources.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_RenderData.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_RenderQueue.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_SceneGraph.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_RenderStats.cpp">
+      <Filter>Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Terrain.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Camera.cpp">
+      <Filter>World\View\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Frustum.cpp">
+      <Filter>World\View\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_View.cpp">
+      <Filter>World\View</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_ViewManager.cpp">
+      <Filter>World\View</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_GraphicsModule.cpp" />
+    <ClCompile Include="SG_GraphicsProfiler.cpp" />
+    <ClCompile Include="SG_World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_RenderQueues.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_CommonRenderStates.cpp" />
+    <ClCompile Include="SG_EnvironmentConstants.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_ShadowConstants.cpp">
+      <Filter>Lighting\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Raytracer.cpp">
+      <Filter>Lighting\Global Illumination</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_LightCulling.cpp">
+      <Filter>Lighting\Tiled/Clustered</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Light.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_Pointlight.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_LodPresets.cpp">
+      <Filter>Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SG_RaytracingMesh.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SGraphics_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_DebugPrimitives.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_DynamicSky.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Voxelizer.h">
+      <Filter>Lighting\Global Illumination</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Shadows.h">
+      <Filter>Lighting\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_DirectionalLight.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Light.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Material.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_MaterialFactory.h">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Mesh.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_MeshCache.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_MeshInstance.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_MeshStreamer.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_StaticMesh.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Model.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_ModelLoader.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_PostEffects.h">
+      <Filter>PostEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_FrameResources.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RenderData.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RenderQueue.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_DrawSubmitStructs.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_SceneGraph.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RenderStats.h">
+      <Filter>Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Terrain.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Camera.h">
+      <Filter>World\View\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Frustum.h">
+      <Filter>World\View\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_View.h">
+      <Filter>World\View</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_ViewManager.h">
+      <Filter>World\View</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_ViewSettings.h">
+      <Filter>World\View</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_GraphicsModule.h" />
+    <ClInclude Include="SG_GraphicsProfiler.h" />
+    <ClInclude Include="SG_World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RenderQueues.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RenderType.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_MeshHeader.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_CommonRenderStates.h" />
+    <ClInclude Include="SG_EnvironmentConstants.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_ShadowConstants.h">
+      <Filter>Lighting\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Raytracer.h">
+      <Filter>Lighting\Global Illumination</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_LightCulling.h">
+      <Filter>Lighting\Tiled/Clustered</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_Pointlight.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_LodPresets.h">
+      <Filter>Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SG_RaytracingMesh.h" />
+    <ClInclude Include="SG_GraphicsSettings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Data\Shaders\SkyPS.hlsl">
+      <Filter>Shaders\Graphics\Environment</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\SkyVS.hlsl">
+      <Filter>Shaders\Graphics\Environment</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\GeneralShaderInterop.h">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_CommonVS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_DataCollector_AlphaMask_GBufferPS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_DataCollector_GBufferPS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimpleInstancedVS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimplePS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_SimpleVS.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\FullscreenQuadVS.hlsl">
+      <Filter>Shaders\Graphics\Fullscreen</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\DirectionalLight.hlsl">
+      <Filter>Shaders\Graphics\Lights</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\DirectionalLight_Compute.hlsl">
+      <Filter>Shaders\Graphics\Lights</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Globals.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\FramePersistentResources.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\CommonStructs.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\PBR.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\SpaceHelpers.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\StaticSamplers.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\HDR_Tonemap.hlsl">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Luminance.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Bloom_Luminance.hlsl">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Bloom_Blur.hlsl">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Copy.hlsl">
+      <Filter>Shaders\Graphics\Other</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Add.hlsl">
+      <Filter>Shaders\Graphics\Other</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Bloom_Add.hlsl">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Utilities.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\GeneralIncludes.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\FXAA.hlsli">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\PostFX_AA.hlsl">
+      <Filter>Shaders\Graphics\PostFX</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\NormalEncode.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\PBR_2.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Light_Compute.hlsl">
+      <Filter>Shaders\Graphics\Lights</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_DepthTest.hlsl">
+      <Filter>Shaders\Graphics\Object</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\SSAO.hlsl">
+      <Filter>Shaders\Graphics\SSAO</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\PBR_Structs.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Light_Compute2.hlsl">
+      <Filter>Shaders\Graphics\Lights</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Converters.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelPS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelizeGS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelizePS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelizeVS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelInstancedVS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\VoxelSceneClear.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Object_VoxelGS.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\VoxelConeTracing_Common.hlsli">
+      <Filter>Shaders\Graphics\Lights\GI</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\VoxelSceneRelight.hlsl">
+      <Filter>Shaders\Graphics\Voxelization</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Sky.hlsli">
+      <Filter>Shaders\Graphics\Environment</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\ShadowMapCSM.hlsli">
+      <Filter>Shaders\Graphics\Includes</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Sky_Compute.hlsl">
+      <Filter>Shaders\Graphics\Environment</Filter>
+    </None>
+    <None Include="..\..\Data\Shaders\Compute_Blur.hlsl">
+      <Filter>Shaders\Graphics\Other</Filter>
+    </None>
+  </ItemGroup>
+</Project>

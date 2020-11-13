@@ -1,0 +1,60 @@
+struct VertexData
+{
+    float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+struct InstanceData
+{
+    float4 myMat0 : INSTANCE_MAT0;
+    float4 myMat1 : INSTANCE_MAT1;
+    float4 myMat2 : INSTANCE_MAT2;
+    float4 myMat3 : INSTANCE_MAT3;
+    float4 myInstanceColor : INSTANCE_COLOR;
+};
+
+struct InputStruct
+{
+    VertexData myVertexData;
+    InstanceData myInstanceData;
+};
+
+struct OutputStruct
+{
+    float4x4 myInstanceTransform : INSTANCE_TRANSFORM;
+    precise float4 myPosition : POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myNormal : NORMAL;
+    float3 myTangent : TANGENT;
+    float3 myBinormal : BINORMAL;
+    float2 myUV : UV;
+};
+
+OutputStruct main (InputStruct input)
+{
+    VertexData vertexData = input.myVertexData;
+    InstanceData instanceData = input.myInstanceData;
+
+    float4x4 modelTransform = float4x4(
+        instanceData.myMat0,
+        instanceData.myMat1,
+        instanceData.myMat2,
+        instanceData.myMat3
+    );
+
+    OutputStruct output;
+    output.myInstanceTransform = modelTransform;
+    output.myWorldPos = SR_Transform(modelTransform, vertexData.myPosition.xyz).xyz;
+    output.myPosition = vertexData.myPosition;
+    output.myColor = vertexData.myColor * instanceData.myInstanceColor;
+    output.myNormal = vertexData.myNormal;
+    output.myTangent = vertexData.myTangent;
+    output.myBinormal = vertexData.myBinormal;
+    output.myUV = vertexData.myUV;
+
+    return output;
+}

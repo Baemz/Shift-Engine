@@ -1,0 +1,142 @@
+
+#define VOXEL_CONE_QUALITY (8)
+#define VOXEL_CONE_QUALITY_INVERSED (1/8.f)
+#define VOXEL_CONE_PI (3.14159265359f)
+
+static const uint VoxelNumCones = 8;
+static const float VoxelNumConesInversed = 1 / 8.0;
+
+static const float3 VoxelConeTraceCones[] =
+{
+	float3(0.57735, 0.57735, 0.57735),
+	float3(0.57735, -0.57735, -0.57735),
+	float3(-0.57735, 0.57735, -0.57735),
+	float3(-0.57735, -0.57735, 0.57735),
+	float3(-0.903007, -0.182696, -0.388844),
+	float3(-0.903007, 0.182696, 0.388844),
+	float3(0.903007, -0.182696, 0.388844),
+	float3(0.903007, 0.182696, -0.388844),
+	float3(-0.388844, -0.903007, -0.182696),
+	float3(0.388844, -0.903007, 0.182696),
+	float3(0.388844, 0.903007, -0.182696),
+	float3(-0.388844, 0.903007, 0.182696),
+	float3(-0.182696, -0.388844, -0.903007),
+	float3(0.182696, 0.388844, -0.903007),
+	float3(-0.182696, 0.388844, 0.903007),
+	float3(0.182696, -0.388844, 0.903007)
+};
+
+SR_ConstantBuffer VoxelSettings : SR_ConstantBufferRef_VoxelSettings
+{
+    float3 VoxelSceneMinPos;
+    float VoxelSize;
+    float3 VoxelSceneCenter;
+    float VoxelSizeInversed;
+    float VoxelSceneTexelSize;
+	float VoxelSceneWorldSize;
+	float VoxelWorldScale;
+    uint VoxelSceneResolution;
+};
+
+SR_Texture3D VoxelSceneTexture : SR_TextureRef_VoxelScene;
+
+inline float4 ConeTrace(in float3 aPosition, in float3 aNormal, in float3 aConeDirection, in float aConeAperture)
+{
+    float3 color = 0;
+    float alpha = 0;
+    float currentDistance = VoxelSettings.VoxelSize;
+    const float3 startPos = aPosition + aNormal * VoxelSettings.VoxelSize * 2;
+    const float maxDistance = 256.f * VoxelSettings.VoxelSize;
+    while (currentDistance < maxDistance && alpha < 1)
+    {
+        const float diameter = max(VoxelSettings.VoxelSize, 2 * aConeAperture * currentDistance);
+        const float mip = log2(diameter * VoxelSettings.VoxelSizeInversed);
+
+        float3 currentConePosition = startPos + aConeDirection * currentDistance;
+        currentConePosition = (((((currentConePosition - VoxelSettings.VoxelSceneCenter) * VoxelSettings.VoxelSizeInversed) * VoxelSettings.VoxelSceneTexelSize) * float3(0.5f, -0.5f, 0.5f)) + 0.5f);
+        
+        if (any(currentConePosition - saturate(currentConePosition)) || mip >= (float)7)
+        {
+            break;
+        }
+
+        const float4 sceneSample = SR_SampleLod(SamplerLinearClamp, VoxelSceneTexture, currentConePosition, mip);
+        float a = 1 - alpha;
+        color += a * sceneSample.rgb;
+        alpha += a * sceneSample.a;
+        currentDistance += diameter * 0.6f;
+    }
+
+    return float4(color, alpha);
+}
+
+inline float4 ConeTraceRadiance(in float3 aPosition, in float3 aNormal)
+{
+    float4 radiance = 0;
+    float ambientFactor = 0.f;
+    [unroll]
+    for (uint cone = 0; cone < VOXEL_CONE_QUALITY; ++cone)
+    {
+        float3 coneDirection = reflect(VoxelConeTraceCones[cone], aNormal);
+        coneDirection *= (dot(coneDirection, aNormal) < 0) ? -1 : 1;
+        radiance += ConeTrace(aPosition, aNormal, coneDirection, tan(PI * 0.25));
+        
+    }
+    
+    ambientFactor = 1.0f - saturate(ambientFactor);
+
+    radiance *= VOXEL_CONE_QUALITY_INVERSED;
+    radiance.a = saturate(radiance.a);
+    
+    return max(0, radiance);
+}
+//float4 TraceCone(float3 position, float3 normal, float3 direction, float aperture, bool traceOcclusion)
+//{
+//    uint3 visibleFace;
+//    visibleFace.x = (direction.x < 0.0) ? 0 : 1;
+//    visibleFace.y = (direction.y < 0.0) ? 2 : 3;
+//    visibleFace.z = (direction.z < 0.0) ? 4 : 5;
+//    traceOcclusion = traceOcclusion && aoAlpha < 1.0f;
+//    // world space grid voxel size
+//    float voxelWorldSize = 2.0 /  (voxelScale * volumeDimension);
+//    // weight per axis for aniso sampling
+//    float3 weight = direction * direction;
+//    // move further to avoid self collision
+//    float dst = voxelWorldSize;
+//    float3 startPosition = position + normal * dst;
+//    // final results
+//    float4 coneSample = vec4(0.0f);
+//    float occlusion = 0.0f;
+//    float maxDistance = maxTracingDistanceGlobal * (1.0f / voxelScale);
+//    float falloff = 0.5f * aoFalloff * voxelScale;
+//    // out of boundaries check
+//    float enter = 0.0; float leave = 0.0;
+//
+//    if(!IntersectRayWithWorldAABB(position, direction, enter, leave))
+//    {
+//        coneSample.a = 1.0f;
+//    }
+//
+//    while(coneSample.a < 1.0f && dst <= maxDistance)
+//    {
+//        float3 conePosition = startPosition + direction * dst;
+//        // cone expansion and respective mip level based on diameter
+//        float diameter = 2.0f * aperture * dst;
+//        float mipLevel = log2(diameter / voxelWorldSize);
+//        // convert position to texture coord
+//        float3 coord = WorldToVoxel(conePosition);
+//        // get directional sample from anisotropic representation
+//        float4 anisoSample = AnistropicSample(coord, weight, visibleFace, mipLevel);
+//        // front to back composition
+//        coneSample += (1.0f - coneSample.a) * anisoSample;
+//        // ambient occlusion
+//        if(traceOcclusion && occlusion < 1.0)
+//        {
+//            occlusion += ((1.0f - occlusion) * anisoSample.a) / (1.0f + falloff * diameter);
+//        }
+//        // move further into volume
+//        dst += diameter * samplingFactor;
+//    }
+//
+//    return float4(coneSample.rgb, occlusion);
+//}

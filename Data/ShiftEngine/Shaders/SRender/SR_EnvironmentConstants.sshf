@@ -1,0 +1,12 @@
+
+// Must match "Source/SGraphics/SG_EnvironmentConstants.h"
+SR_ConstantBuffer SR_EnvironmentConstants : SR_ConstantBufferRef_EnvironmentConstants
+{
+    float3 myToSunDirection;
+    float mySunIntensity;
+    float3 mySunColor;
+	float mySunCosLow;
+	float mySunCosHigh;
+	float myDirectSunFactor;
+    float myAmbientLightIntensity;
+}

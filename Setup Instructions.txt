@@ -1,0 +1,47 @@
+
+PREREQUISITES
+
+Hardware:
+DirectX 12 enabled GPU capable supporting feature level 12.0
+
+Software:
+Building the project is currently only supported by Visual Studio 19
+using the latest C++ version. 
+
+master-branch:
+1. Windows SDK 18362 (Windows version 1903)
+
+GFX_NEXT-branch
+1. Windows SDK 19582 (Windows Insider Preview version 2004)
+
+Notes:
+Use SClient_Win64 as startup project.
+--------------------------------------------------------
+
+USING SOURCETREE:
+
+1. Download and install SourceTree https://www.sourcetreeapp.com/
+   1.1 - You only need the Git part, not Mercurial
+	
+2. Make sure you can access SourceTree through Atlassian.
+
+3. Login to your GitLab on the website and go to:
+   3.1 - User Settings -> Access Tokens
+   3.2 - Make an access token with all tags filled in and leave the expire date empty. SAVE THE GENERATED CODE!
+	
+4. In SourceTree
+   4.1 - Go to Tools -> Options -> Authentication
+   4.2 - Add New
+   4.3 - Choose GitLab as hosting service
+   4.4 - Click "Refresh Personal Access Token"
+   4.5 - Enter your GitLab username and the generated code as password.
+   4.6 - Et Voila! You should have an authenticated account.
+	
+5. In SourceTree
+   5.1 - Open new tab
+   5.2 - Choose "Remote" and select your GitLab account
+   5.3 - You should see the Shift Engine repositority (If not you need fork the repo or to send an access request to hampus.siversson@gmail.com)
+   5.4 - Select the repo and choose clone
+   5.5 - Choose where to save it and let it download
+	
+6. DONE

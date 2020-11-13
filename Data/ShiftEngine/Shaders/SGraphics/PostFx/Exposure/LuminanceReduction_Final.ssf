@@ -1,0 +1,51 @@
+Texture2D<float> InputMap : register(t0);
+RWTexture2D<float> OutputMap : register(u0);
+
+SR_ConstantBuffer Constants : SR_ConstantBuffer0
+{
+    float TimeDelta;
+    bool EnableAdaptation;
+};
+
+static const float AdaptationRate = 0.75f;
+static const uint NumThreads = 16;
+static const uint TotalNumThreads = NumThreads * NumThreads;
+groupshared float LumSamples[TotalNumThreads];
+
+[numthreads(NumThreads, NumThreads, 1)]
+void main(uint3 groupID : SV_GroupID, uint3 groupThreadID : SV_GroupThreadID, uint threadIndex : SV_GroupIndex)
+{
+    uint2 textureSize;
+    InputMap.GetDimensions(textureSize.x, textureSize.y);
+
+    uint2 samplePos = groupID.xy * NumThreads + groupThreadID.xy;
+    samplePos = min(samplePos, textureSize - 1);
+
+    float pixelLuminance = InputMap[samplePos];
+
+    // Store in shared memory
+    LumSamples[threadIndex] = pixelLuminance;
+    GroupMemoryBarrierWithGroupSync();
+
+    // Reduce
+	[unroll]
+	for(uint s = NumThreads / 2; s > 0; s >>= 1)
+    {
+		if(threadIndex < s)
+			LumSamples[threadIndex] += LumSamples[threadIndex + s];
+
+		GroupMemoryBarrierWithGroupSync();
+	}
+
+    if(threadIndex == 0)
+    {
+		// Perform adaptation
+		float lastLum = OutputMap[uint2(0, 0)];
+		float currentLum = exp(LumSamples[0] / NumThreads);
+			
+		// Adapt the luminance using Pattanaik's technique
+		const float Tau = AdaptationRate;
+		float adaptedLum = EnableAdaptation ? lastLum + (currentLum - lastLum) * (1 - exp(-TimeDelta * Tau)) : currentLum;
+		OutputMap[uint2(0, 0)] = clamp(adaptedLum, 0.0001, 1000.0);
+    }
+}

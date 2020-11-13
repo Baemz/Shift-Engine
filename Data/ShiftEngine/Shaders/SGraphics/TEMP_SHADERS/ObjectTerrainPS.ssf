@@ -1,0 +1,33 @@
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D NormalMap : SR_Texture1;
+
+struct InStruct
+{
+	float4 myPosition : SV_POSITION;
+	float3 myNormal : NORMAL;
+	float2 myUV : UV;
+};
+
+struct OutStruct
+{
+    float4 myColor : SV_TARGET0;
+    float4 myNormal : SV_TARGET1;
+    float4 myMaterial : SV_TARGET2;
+    float4 myEmissive : SV_TARGET3;
+};
+
+OutStruct main(in InStruct input)
+{
+	OutStruct output;
+	
+    float3 normal = normalize(SR_SampleLod0(SamplerAnisoClamp, NormalMap, input.myUV).xzy);
+	float3 arm = float3(1.0, 0.5, 0.0);
+    output.myColor.rgb = (float3) 0.5;
+	output.myColor.a = 1.0;
+	output.myNormal = float4(normal, 0.0);
+	output.myMaterial.rgb = arm;
+	output.myMaterial.a = 0.0f;
+	output.myEmissive = float4(0.0, 0.0, 0.0, 0.0);
+	return output;
+}

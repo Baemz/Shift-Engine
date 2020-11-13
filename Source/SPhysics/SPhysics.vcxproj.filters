@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{fca06109-a152-42c0-b9eb-11a13bcfee20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependency">
+      <UniqueIdentifier>{2ba433ce-f275-4c2d-8b7f-19d5eb1d5173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{b7e3a167-706d-4ff4-9631-b31f9fcb8c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBody">
+      <UniqueIdentifier>{ef184f0d-8421-4856-8114-86001fc0fd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{3e9228cf-4932-4f1e-9b8e-8ac217dbe97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBody\Geometry">
+      <UniqueIdentifier>{d7d0cb22-a04b-4dee-ace7-9fb4ed9c7af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{675abfd2-5f2e-4bd7-9646-3730c06ed2f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SPhysics_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SP_Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="SP_RigidBody.cpp">
+      <Filter>RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="SP_Geometry.cpp">
+      <Filter>RigidBody\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="SP_PhysicsDevice.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SPhysics_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SP_Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="SP_RigidBody.h">
+      <Filter>RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="SP_Geometry.h">
+      <Filter>RigidBody\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="SP_PhysicsEnums.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SP_PhysicsDevice.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

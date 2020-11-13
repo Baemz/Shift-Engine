@@ -1,0 +1,52 @@
+import "SRender/SR_StaticSamplers.sshf"
+import "SRender/SR_ViewConstants.sshf"
+
+SR_Texture2DArrayRW<float4> outIrradianceTexture : SR_TextureRW0;
+SR_TextureCube skySpecular : SR_Texture0;
+
+SR_ConstantBuffer CameraInfo : SR_ConstantBuffer0
+{
+	int CubeFace;
+}
+
+[numthreads(8, 8, 1)]
+void main(uint3 threadID : SV_DispatchThreadID)
+{
+    float2 Resolution = (float2)256.0;
+	if ((float)threadID.x > Resolution.x || (float)threadID.y > Resolution.y)
+		return;
+
+	int3 pixelLocation = int3(threadID.xy, CubeFace);
+	float2 uv = SR_PixelToUV(pixelLocation.xy, Resolution);
+	float3 worldPosition = SR_ClipToWorld(uv, 1.0);
+	float3 viewDir = normalize(worldPosition - SR_ViewConstants.myCameraPosition);
+    outIrradianceTexture[pixelLocation] = SR_SampleLod0(SamplerLinearClamp, skySpecular, viewDir);
+	
+	//int3 pixelLocation = int3(threadID.xy, CubeFace);
+	//float2 uv = SR_PixelToUV(pixelLocation.xy, Resolution);
+	//float3 worldPosition = SR_ClipToWorld(uv, 1.0);
+    //float3 normal = normalize(worldPosition);
+	//float3 irradiance = (float3)0;  
+    //
+    //float3 up = float3(0.0, 1.0, 0.0);
+    //float3 right = cross(up, normal);
+    //up = cross(normal, right);
+    //
+    //float sampleDelta = 0.5;
+    //float nrSamples = 0.0; 
+    //for(float phi = 0.0; phi < 2.0 * SR_Pi; phi += sampleDelta)
+    //{
+    //    for(float theta = 0.0; theta < 0.5 * SR_Pi; theta += sampleDelta)
+    //    {
+    //        // spherical to cartesian (in tangent space)
+    //        float3 tangentSample = float3(sin(theta) * cos(phi),  sin(theta) * sin(phi), cos(theta));
+    //        // tangent space to world
+    //        float3 sampleVec = tangentSample.x * right + tangentSample.y * up + tangentSample.z * normal; 
+    //
+    //        irradiance += SR_SampleLod0(SamplerLinearClamp, skySpecular, sampleVec).rgb * cos(theta) * sin(theta);
+    //        nrSamples++;
+    //    }
+    //}
+    //irradiance = SR_Pi * irradiance * (1.0 / float(nrSamples));
+    //outIrradianceTexture[pixelLocation] = float4(irradiance, 1.0);
+}

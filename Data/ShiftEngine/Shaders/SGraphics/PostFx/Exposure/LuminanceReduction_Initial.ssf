@@ -1,0 +1,40 @@
+import "SGraphics/PostFx/Exposure/Luminance.sshf"
+
+Texture2D<float4> InputMap : register(t0);
+RWTexture2D<float> OutputMap : register(u0);
+
+static const uint NumThreads = 16;
+static const uint TotalNumThreads = NumThreads * NumThreads;
+groupshared float LumSamples[TotalNumThreads];
+
+[numthreads(NumThreads, NumThreads, 1)]
+void main(uint3 groupID : SV_GroupID, in uint3 groupThreadID : SV_GroupThreadID, uint threadIndex : SV_GroupIndex)
+{
+	uint2 textureSize;
+    InputMap.GetDimensions(textureSize.x, textureSize.y);
+
+    uint2 samplePos = groupID.xy * NumThreads + groupThreadID.xy;
+    samplePos = min(samplePos, textureSize - 1);
+
+	float3 colorSample = InputMap[samplePos].xyz;
+
+    float lumSample = max(Luminance(colorSample), 0.00001f);
+    float pixelLuminance = log(lumSample);
+
+    // -- store in shared memory
+    LumSamples[threadIndex] = pixelLuminance;
+    GroupMemoryBarrierWithGroupSync();
+
+    // -- reduce
+	[unroll]
+	for(uint s = NumThreads / 2; s > 0; s >>= 1)
+    {
+		if(threadIndex < s)
+			LumSamples[threadIndex] += LumSamples[threadIndex + s];
+
+		GroupMemoryBarrierWithGroupSync();
+	}
+
+    if(threadIndex == 0)
+        OutputMap[groupID.xy] = LumSamples[0] / NumThreads;
+}

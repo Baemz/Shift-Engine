@@ -1,0 +1,138 @@
+
+import "SRender/SR_ShadowConstants.sshf"
+
+SR_Texture2DArray ShadowMapCSM : SR_TextureRef_ShadowMapCSM;
+
+#ifndef SHADOWS_CSM_NO_PCF
+SR_Texture2D ShadowMapNoise : SR_TextureRef_ShadowMapNoise;
+
+float2 GetNoiseRotateVec(float2 aScreenSpaceCoord)
+{
+	float2 vec = SR_SampleLod(SamplerPointWrap, ShadowMapNoise, aScreenSpaceCoord / 128.0, 0).xy * 2.0 - 1.0;
+	vec = SR_Transform(float2x2(SR_ShadowConstants.ShadowSampleRotation.xy, SR_ShadowConstants.ShadowSampleRotation.zw), vec);
+	return vec;
+}
+#else
+float2 GetNoiseRotateVec(float2 aScreenSpaceCoord)
+{
+	return float2(0.0, 0.0);
+}
+#endif
+
+#ifdef SHADOWS_ENABLE_CSM_DEBUG
+float3 GetCSMDebugColor(uint aIndex)
+{
+	float3 col[4];
+	col[0] = float3(1.0, 0.0, 0.0);
+	col[1] = float3(0.0, 0.0, 1.0);
+	col[2] = float3(0.0, 1.0, 0.0);
+	col[3] = float3(1.0, 1.0, 0.0);
+
+	return col[aIndex];
+}
+#endif
+
+float SampleCascade(float4 aShadowMapCoord)
+{
+	return SR_SampleCmpLod0(SamplerCmpLinearClamp, ShadowMapCSM, aShadowMapCoord.xyz, aShadowMapCoord.w);
+}
+
+float SampleCascadeRandom(float4 aShadowMapCoord, float2 aNoiseRotationVec, float2 aOffset)
+{
+	float2 rotation;
+	rotation.x = aOffset.x * aNoiseRotationVec.x - aOffset.y * aNoiseRotationVec.y;
+	rotation.y = aOffset.y * aNoiseRotationVec.x + aOffset.x * aNoiseRotationVec.y;
+
+	return SampleCascade(float4(aShadowMapCoord.xy + rotation, aShadowMapCoord.zw));
+}
+
+float SampleCascade4TapPCF(float4 aShadowMapCoord, float2 aNoiseRotationVec)
+{
+	float sampleFactor = 0.0;	
+    float pcfOffset = SR_ShadowConstants.PCFFilterOffset;
+	sampleFactor = SampleCascadeRandom(aShadowMapCoord, aNoiseRotationVec, float2(-pcfOffset, -pcfOffset));
+	sampleFactor += SampleCascadeRandom(aShadowMapCoord, aNoiseRotationVec, float2(-pcfOffset, pcfOffset));
+	sampleFactor += SampleCascadeRandom(aShadowMapCoord, aNoiseRotationVec, float2(pcfOffset, -pcfOffset));
+	sampleFactor += SampleCascadeRandom(aShadowMapCoord, aNoiseRotationVec, float2(pcfOffset, pcfOffset));
+	sampleFactor += SampleCascadeRandom(aShadowMapCoord, aNoiseRotationVec, float2(0.0, 0.0));
+	sampleFactor *= 0.2;
+	return sampleFactor;
+}
+
+float4 GetShadowCascadePos(float3 aWorldPos, out float aShadowFadeOut)
+{
+	const float3 minCascade = float3(0.0, 0.0, 0.0);
+	const float3 maxCascade = float3(1.0, 1.0, 1.0);
+	
+	float4 worldPos = float4(aWorldPos, 1.0);
+	float4 cascadePos3 = SR_Transform(SR_ShadowConstants.ShadowWorldToClip[3], worldPos);
+	float4 shadowPos = cascadePos3;
+	const float3 midPos = float3(0.5, 0.5, 0.5);
+	float finalCascadeDist = max(max(abs(shadowPos.x - midPos.x), abs(shadowPos.y - midPos.y)), abs(shadowPos.w - midPos.z));
+	
+	float4 cascadePos2 = SR_Transform(SR_ShadowConstants.ShadowWorldToClip[2], worldPos);
+	float3 cascadeTemp = step(minCascade, cascadePos2.xyw) * step(cascadePos2.xyw, maxCascade);
+	float cascadeMask2 = cascadeTemp.x * cascadeTemp.y * cascadeTemp.z;
+	shadowPos = lerp(shadowPos, cascadePos2, cascadeMask2);
+
+	float4 cascadePos1 = SR_Transform(SR_ShadowConstants.ShadowWorldToClip[1], worldPos);
+	cascadeTemp = step(minCascade, cascadePos1.xyw) * step(cascadePos1.xyw, maxCascade);
+	float cascadeMask1 = cascadeTemp.x * cascadeTemp.y * cascadeTemp.z;
+	shadowPos = lerp(shadowPos, cascadePos1, cascadeMask1);
+	
+	float4 cascadePos0 = SR_Transform(SR_ShadowConstants.ShadowWorldToClip[0], worldPos);
+	cascadeTemp = step(minCascade, cascadePos0.xyw) * step(cascadePos0.xyw, maxCascade);
+	float cascadeMask0 = cascadeTemp.x * cascadeTemp.y * cascadeTemp.z;
+	shadowPos = lerp(shadowPos, cascadePos0, cascadeMask0.x);
+	
+	float useFinalCascade = (1 - cascadeMask0) * (1 - cascadeMask1) * (1 - cascadeMask2);
+	aShadowFadeOut = useFinalCascade * smoothstep(0.45, 0.5, finalCascadeDist);
+	
+	return shadowPos;
+}
+
+float SampleCSM(float3 aWorldPos, float2 aNoiseRotationVec
+#ifdef SHADOWS_ENABLE_CSM_DEBUG
+	, out float3 aDebugColorOut
+#endif
+)
+{
+	float shadowFade = 0.0;
+	float4 shadowPos = GetShadowCascadePos(aWorldPos, shadowFade);
+	
+#ifdef SHADOWS_CSM_NO_PCF
+	float shadowFactor = SampleCascade(shadowPos);
+#else
+	float shadowFactor = SampleCascade4TapPCF(shadowPos, aNoiseRotationVec);
+#endif
+
+#ifdef SHADOWS_ENABLE_CSM_DEBUG
+	aDebugColorOut = GetCSMDebugColor(shadowPos.z);
+#endif
+
+	const float defaultShadowFactor = 0.0;
+	shadowFactor = lerp(shadowFactor, defaultShadowFactor, shadowFade);
+	
+	return shadowFactor;
+}
+
+float GetShadowFactor(float3 aWorldPos, float2 aScreenSpaceCoord
+#ifdef SHADOWS_ENABLE_CSM_DEBUG
+	, out float3 aDebugColorOut
+#endif
+)
+{
+	float shadowFactor;
+
+	float2 noiseRotateVec = GetNoiseRotateVec(aScreenSpaceCoord);
+	shadowFactor = SampleCSM(aWorldPos, noiseRotateVec
+#ifdef SHADOWS_ENABLE_CSM_DEBUG
+		, aDebugColorOut
+#endif
+	);
+
+	// Add additional shadowing here
+	// Clouds, Distance, Parallaxing Shadows etc.
+
+	return shadowFactor;
+}

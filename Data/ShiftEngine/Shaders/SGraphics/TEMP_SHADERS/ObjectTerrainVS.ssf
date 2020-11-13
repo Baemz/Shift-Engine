@@ -1,0 +1,32 @@
+import "SRender/SR_ViewConstants.sshf"
+import "SRender/SR_StaticSamplers.sshf"
+
+SR_Texture2D HeightTexture : SR_Texture0;
+SR_Texture2D NormalMap : SR_Texture1;
+
+struct InStruct
+{
+    float4 myPosition : POSITION;
+    float2 myUV : UV;
+};
+
+struct OutStruct
+{
+	float4 myPosition : SV_POSITION;
+	float3 myNormal : NORMAL;
+	float2 myUV : UV;
+};
+
+OutStruct main(InStruct input)
+{
+    OutStruct output;
+	float height = SR_SampleLod0(SamplerAnisoClamp, HeightTexture, input.myUV);
+    float3 normal = (float3)0;//normalize(NormalMap.SampleLevel(Sampler_Aniso16_Clamp, input.uv, 0).xyz);
+
+	output.myNormal = normal;
+    output.myPosition = float4(input.myPosition.xyz, 1.0f);
+	output.myPosition.y = height * 100.0;
+    output.myPosition = SR_Transform(SR_ViewConstants.myWorldToClip, output.myPosition);
+	output.myUV = input.myUV;
+	return output;
+}

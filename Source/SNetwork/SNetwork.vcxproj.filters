@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{113f8162-8b49-4785-91b2-f82247efb8f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{62300e4d-4ca7-48d0-a44e-a71c83aca584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket\Win64">
+      <UniqueIdentifier>{7c23e7bf-43fa-4a3d-86aa-7c8edbe7b902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket\Linux">
+      <UniqueIdentifier>{77d26b65-bd5c-4abe-ba63-135d4d8c3049}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SNetwork_Precompiled.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SN_Socket.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="SN_NetworkDefines.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="SN_NetworkManager.h" />
+    <ClInclude Include="SN_Socket_Win64.h">
+      <Filter>Socket\Win64</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SNetwork_Precompiled.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="SN_Socket.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="SN_NetworkManager.cpp" />
+    <ClCompile Include="SN_Socket_Win64.cpp">
+      <Filter>Socket\Win64</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

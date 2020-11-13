@@ -1,0 +1,11 @@
+import "SRender/SR_Depth.sshf"
+
+SR_Texture2DRW<float> outTexture : SR_TextureRW0;
+
+[numthreads(8,8,1)]
+void main(uint3 threadIndex : SV_DispatchThreadId)
+{
+    float depthSample = SR_LoadDepthAtPixel(threadIndex.xy);
+    float linearDepth = SR_LinearizeDepth(depthSample);
+    outTexture[threadIndex.xy] = linearDepth;
+}

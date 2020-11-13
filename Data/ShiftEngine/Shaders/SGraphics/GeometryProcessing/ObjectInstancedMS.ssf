@@ -1,0 +1,45 @@
+#define MAX_NUM_VERTS 65535
+#define MAX_NUM_PRIMS (MAX_NUM_VERTS / 3)
+
+struct OutStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    precise float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+[outputtopology("triangle")]
+[numthreads(64, 1, 1)]
+void main(
+    in uint aThreadIndex : SV_DispatchThreadID,
+    in uint aGroupIndex : SV_GroupIndex,
+    out vertices OutStruct verts[MAX_NUM_VERTS],
+    out indices uint3 triangles[MAX_NUM_PRIMS])
+{
+
+    SetMeshOutputCounts(numVerticesInThreadGroup, numPrimitivesInThreadGroup);
+    
+    uint numVertexIterations = numVerticesInThreadGroup / NUM_THREADS;
+    for (uint i=0; i <= numVertexIterations; ++i)
+    {
+        uint localVertexIndex = i * NUM_THREADS + aGroupIndex;
+    
+        if (localVertexIndex < numVerticesInThreadGroup)
+        {
+            OutStruct v = User_LoadAndProcessVertex(indices[localVertexIndex]);
+            verts[localVertexIndex] = v;
+        }
+    }
+
+    // Now write the primitives
+    if (aGroupIndex < numPrimitivesInThreadGroup)
+    {
+        triangles[aGroupIndex] = uint3(
+            packedConnectivityForThisLanesPrimitive & 0xFF,
+            (packedConnectivityForThisLanesPrimitive >> 8) & 0xFF,
+            (packedConnectivityForThisLanesPrimitive >> 16) & 0xFF);
+    }
+}

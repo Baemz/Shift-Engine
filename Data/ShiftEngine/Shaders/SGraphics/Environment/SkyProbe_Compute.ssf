@@ -1,0 +1,29 @@
+#define DISABLE_SUN_VISIBILITY
+import "SGraphics/Environment/Sky.sshf"
+import "SRender/SR_ViewConstants.sshf"
+
+SR_Texture2DArrayRW<float4> outLightTexture : SR_TextureRW0;
+
+SR_ConstantBuffer CameraInfo : SR_ConstantBuffer0
+{
+	int CubeFace;
+}
+
+[numthreads(8, 8, 1)]
+void main(uint3 threadID : SV_DispatchThreadID)
+{	
+	float2 Resolution = (float2)256.0;
+	if ((float)threadID.x > Resolution.x || (float)threadID.y > Resolution.y)
+		return;
+	
+	int3 pixelLocation = int3(threadID.xy, CubeFace);
+	float2 uv = SR_PixelToUV(pixelLocation.xy, Resolution);
+	float3 worldPosition = SR_ClipToWorld(uv, 1.0);
+	float3 viewDir = normalize(worldPosition - SR_ViewConstants.myCameraPosition);
+	
+	float4 outColor = (float4)0;
+	
+	outColor.rgb += CalculateSkyColor(viewDir);
+	
+	outLightTexture[pixelLocation] = outColor * max(0.5, SR_EnvironmentConstants.mySunIntensity);
+}

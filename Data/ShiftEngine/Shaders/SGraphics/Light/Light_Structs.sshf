@@ -1,0 +1,47 @@
+struct ObjectAttributes
+{
+	float3 myWorldPosition;
+	float3 myNormal;
+	float3 myDiffuse;
+	float myAO;
+	float myRoughness;
+	float myMetallic;
+};
+
+struct PBRAttributes
+{
+	float3 myFresnel;
+	float myAttenuation;
+	float myGGX;
+	float myVisibility;
+};
+
+struct Sphere
+{
+	float3 myCenter;
+	float myRadius;
+};
+
+struct Plane
+{
+	float3 myNormal;
+	float myDistanceToOrigin;
+};
+
+// Match these with "Source/SGraphics/Lighting/LightTypes.h"
+static const uint SR_LightType_Unknown = 0;
+static const uint SR_LightType_Directonal = 1;
+static const uint SR_LightType_Pointlight = 2;
+static const uint SR_LightType_Spotlight = 3;
+
+struct SR_Light
+{
+	float3 myPosition;
+	float myRange;
+	float3 myColor;
+	float myIntensity;
+	float3 myDirection;
+	float myAngle;
+	uint myType;
+	uint3 _notUsed;
+};

@@ -1,0 +1,109 @@
+import "SRender/SR_StaticSamplers.sshf"
+import "SGraphics/Light/DirectLight.sshf"
+import "SGraphics/Light/IndirectLight.sshf"
+import "SGraphics/Light/Shadow.sshf"
+import "SGraphics/Light/Light_TiledCulling.sshf"
+
+SR_Texture2D colorTexture : SR_Texture0;
+SR_Texture2D normalTexture : SR_Texture1;
+SR_Texture2D aoTexture : SR_Texture2;
+SR_Texture2D roughnessTexture : SR_Texture3;
+SR_Texture2D metallicTexture : SR_Texture4;
+
+SR_StructuredBuffer<SR_Light> Lights : SR_Buffer0;
+
+struct OutputStruct
+{
+    float4 myColor : SV_TARGET;
+};
+
+struct InputStruct
+{
+    float3x3 myTangentSpaceMatrix : TANGENTSPACEMATRIX;
+    float4 myPosition : SV_POSITION;
+    float4 myColor : COLOR;
+    float3 myWorldPos : WORLD_POSITION;
+    float3 myWorldNormal : WORLD_NORMAL;
+    float2 myUV : UV;
+};
+
+OutputStruct main(InputStruct input)
+{
+    float3 normalSample = normalTexture.Sample(SamplerAnisoWrap, input.myUV).xyz * 2.0 - 1.0;
+    float3 normal = normalize(mul(input.myTangentSpaceMatrix, normalSample));
+
+    float4 color = colorTexture.Sample(SamplerAnisoWrap, input.myUV);
+    float3 material = (float3)0;
+    material.r = aoTexture.Sample(SamplerAnisoWrap, input.myUV).r;
+    material.g = roughnessTexture.Sample(SamplerAnisoWrap, input.myUV).r;
+    material.b = metallicTexture.Sample(SamplerAnisoWrap, input.myUV).r;
+
+	float alpha = color.a;
+
+	float3 toCamera = normalize(SR_ViewConstants.myCameraPosition - input.myWorldPos);
+    ObjectAttributes attributes;
+	attributes.myWorldPosition = input.myWorldPos;
+	attributes.myNormal = normal;
+	attributes.myDiffuse = color.rgb;
+	attributes.myAO = material.r;
+	attributes.myRoughness = material.g;
+	attributes.myMetallic = material.b;
+
+    float3 directLight = (float3)0;
+    float shadowFactor = GetShadowFactor(input.myWorldPos, input.myUV);
+    if (shadowFactor > 0.0)
+	    directLight += shadowFactor * DirectLight(attributes, toCamera, SR_EnvironmentConstants.myToSunDirection, SR_EnvironmentConstants.mySunColor, SR_EnvironmentConstants.mySunIntensity, 1.0);
+    
+	// Dynamic lights
+	uint2 tileCoord = uint2(input.myPosition.x / TILE_SIZE, input.myPosition.y / TILE_SIZE);
+	uint tileIndex = GetTileIndex(tileCoord);
+	SR_TileData tileData = LightTileData[tileIndex];
+
+	for (uint i = 0; i < MAX_NUM_LIGHTS_PER_TILE; ++i)
+	{
+		int lightIndex = tileData.myLightIndices[i];
+		if (lightIndex > -1)
+		{
+			SR_Light light = Lights[lightIndex];
+
+			float3 result = (float3)0;
+			float3 toLightDir = normalize(toCamera - light.myPosition);
+
+			// Do appropriate light calculations here
+
+			float toLightDistance = distance(light.myPosition, input.myWorldPos);
+			float lightRange = light.myRange * light.myRange;
+			float toLightDist2 = toLightDistance * toLightDistance;
+
+			float linearAttenuation = saturate(1.f - (toLightDist2 / lightRange));
+			float physicalAttenuation = 1.f / toLightDistance;
+			float attenuation = linearAttenuation * physicalAttenuation;
+
+			if (light.myType == SR_LightType_Pointlight)
+			{
+				// Pointlight specific calculations?
+			}
+			else if (light.myType == SR_LightType_Spotlight)
+			{
+				// TODO: Replace with Umbra/Penumbra calc using 2 angles.
+
+    			float cutPoint = 1.f - ((light.myAngle / 2.f) / 180.f);
+    			float a = saturate(dot(normalize(-toLightDir), normalize(light.myDirection)));
+    			float angleAttenuation = saturate((a - cutPoint) * (1.f / (1.f - cutPoint)));
+
+				attenuation *= angleAttenuation;
+			}
+
+			result += DirectLight(attributes, toCamera, toLightDir, light.myColor, light.myIntensity, attenuation);
+			directLight += result;
+		}
+	}
+
+    float3 ambientLight = AmbientLight(attributes, toCamera) * SR_EnvironmentConstants.myAmbientLightIntensity;
+
+    //float3 emissionSample = (float3)0;//SR_Load(emissionTexture, sampleLocation).rgb;
+
+    OutputStruct output;
+    output.myColor = float4(directLight + ambientLight, alpha);
+    return output;
+}

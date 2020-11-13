@@ -1,0 +1,29 @@
+struct InStruct
+{
+    float4 myPosition : SV_Position,
+    float2 myUV : UV
+};
+
+struct OutStruct
+{
+    float4 myColor : SV_Target;
+}
+
+SR_ConstantBuffer ImageSettings : SR_ConstantBuffer0
+{
+    float3 ColorOverride;
+    float Alpha;
+}
+
+SR_Texture2D SourceTexture : SR_Texture0;
+
+OutStruct main(in InStruct aInput)
+{
+    float3 color = SR_Sample(SamplerLinearClamp, SourceTexture, aInput.myUV).rgb;
+    color *= ColorOverride;
+    color *= Alpha;
+
+    OutStruct output;
+    output.myColor = float4(color,1);
+    return output;
+}
